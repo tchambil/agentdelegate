@@ -6,12 +6,12 @@ import dcc.com.agent.script.intermediate.TypeNode;
 
 public class DateKeywordToken extends TypeKeywordToken {
 
-  public String toString(){
-    return "date";
-  }
+    public String toString() {
+        return "date";
+    }
 
-  public TypeNode getTypeNode(){
-    return DateTypeNode.one;
-  }
+    public TypeNode getTypeNode() {
+        return DateTypeNode.one;
+    }
 
 }

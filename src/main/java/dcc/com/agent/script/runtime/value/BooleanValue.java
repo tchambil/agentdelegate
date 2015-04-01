@@ -1,12 +1,12 @@
 /**
  * Copyright 2012 John W. Krupansky d/b/a Base Technology
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *     
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,71 +26,71 @@ import dcc.com.agent.script.runtine.ScriptState;
 
 public class BooleanValue extends Value {
 
-  static public BooleanValue create(boolean value){
-    if (value)
-      return TrueValue.one;
-    else
-      return FalseValue.one;
-  }
+    static public BooleanValue create(boolean value) {
+        if (value)
+            return TrueValue.one;
+        else
+            return FalseValue.one;
+    }
 
-  public TypeNode getType(){
-    return BooleanTypeNode.one;
-  }
-  
-  public Object getValue(){
-    return false;
-  }
+    public TypeNode getType() {
+        return BooleanTypeNode.one;
+    }
 
-  public boolean getBooleanValue(){
-    return false;
-  }
+    public Object getValue() {
+        return false;
+    }
 
-  public long getLongValue(){
-    return 0;
-  }
+    public boolean getBooleanValue() {
+        return false;
+    }
 
-  public double getDoubleValue(){
-    return 0.0;
-  }
+    public long getLongValue() {
+        return 0;
+    }
 
-  public String getStringValue(){
-    return Boolean.toString(false);
-  }
+    public double getDoubleValue() {
+        return 0.0;
+    }
 
-  public Value getNamedValue(ScriptState scriptState, String name) throws RuntimeException {
-    return super.getNamedValue(scriptState, name);
-  }
+    public String getStringValue() {
+        return Boolean.toString(false);
+    }
 
-  public Value getMethodValue(ScriptState scriptState, String name, List<Value> arguments) throws RuntimeException {
-      return super.getMethodValue(scriptState, name, arguments);
-  }
+    public Value getNamedValue(ScriptState scriptState, String name) throws RuntimeException {
+        return super.getNamedValue(scriptState, name);
+    }
 
-  public Value add(Value otherValue){
-    return BooleanValue.create(getBooleanValue()|| otherValue.getBooleanValue());
-  }
-  
-  public String toString(){
-    return "<boolean-value-node>";
-  }
+    public Value getMethodValue(ScriptState scriptState, String name, List<Value> arguments) throws RuntimeException {
+        return super.getMethodValue(scriptState, name, arguments);
+    }
 
-  public String toText(){
-    return toString();
-  }
+    public Value add(Value otherValue) {
+        return BooleanValue.create(getBooleanValue() || otherValue.getBooleanValue());
+    }
 
-  public String toXml(){
-    return toString();
-  }
+    public String toString() {
+        return "<boolean-value-node>";
+    }
 
-  public String getTypeString(){
-    return "boolean";
-  }
+    public String toText() {
+        return toString();
+    }
 
-  public boolean equals(Value valueNode){
-    return valueNode instanceof BooleanValue && this == valueNode;
-  }
+    public String toXml() {
+        return toString();
+    }
 
-  public Value negateValue(){
-    return BooleanValue.create(! getBooleanValue());
-  }
+    public String getTypeString() {
+        return "boolean";
+    }
+
+    public boolean equals(Value valueNode) {
+        return valueNode instanceof BooleanValue && this == valueNode;
+    }
+
+    public Value negateValue() {
+        return BooleanValue.create(!getBooleanValue());
+    }
 
 }

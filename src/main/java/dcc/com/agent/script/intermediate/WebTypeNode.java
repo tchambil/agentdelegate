@@ -1,12 +1,12 @@
 /**
  * Copyright 2012 John W. Krupansky d/b/a Base Technology
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *     
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,26 +22,26 @@ import dcc.com.agent.script.runtime.value.Value;
 import dcc.com.agent.script.runtime.value.WebValue;
 
 public class WebTypeNode extends TypeNode {
-  public static WebTypeNode one = new WebTypeNode();
+    public static WebTypeNode one = new WebTypeNode();
 
-  public WebTypeNode(){
-    
-  }
-  
-  public Value create(List<Value> argumentValues){
-    return new WebValue();
-  }
-  
-  public Value getDefaultValue(){
-    return new WebValue();
-  }
-  
-  public String toString(){
-    return "web";
-  }
+    public WebTypeNode() {
 
-  public boolean isCompatibleType(TypeNode other){
-    return other instanceof WebTypeNode || other.getClass() == ObjectTypeNode.class;
-  }
+    }
+
+    public Value create(List<Value> argumentValues) {
+        return new WebValue();
+    }
+
+    public Value getDefaultValue() {
+        return new WebValue();
+    }
+
+    public String toString() {
+        return "web";
+    }
+
+    public boolean isCompatibleType(TypeNode other) {
+        return other instanceof WebTypeNode || other.getClass() == ObjectTypeNode.class;
+    }
 
 }

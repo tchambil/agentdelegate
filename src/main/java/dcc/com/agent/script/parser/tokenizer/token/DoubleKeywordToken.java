@@ -6,12 +6,12 @@ import dcc.com.agent.script.intermediate.TypeNode;
 
 public class DoubleKeywordToken extends TypeKeywordToken {
 
-  public String toString(){
-    return "double";
-  }
+    public String toString() {
+        return "double";
+    }
 
-  public TypeNode getTypeNode(){
-    return FloatTypeNode.one;
-  }
+    public TypeNode getTypeNode() {
+        return FloatTypeNode.one;
+    }
 
 }
