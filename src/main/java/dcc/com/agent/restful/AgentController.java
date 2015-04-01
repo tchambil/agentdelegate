@@ -18,338 +18,339 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import dcc.com.agent.script.intermediate.Symbol;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+
 @RestController
 public class AgentController {
-	protected static Logger logger = Logger.getLogger(AgentController.class);
-	public AgentServer agentServer;
-	public Utils util=new Utils();
+    protected static Logger logger = Logger.getLogger(AgentController.class);
+    public AgentServer agentServer;
+    public Utils util = new Utils();
 
 
-    @RequestMapping(value = "/users/{id}/agents", method = RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/users/{id}/agents", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-	public String postAgents(@PathVariable String id,HttpServletRequest request) throws Exception  {
-    	logger.info("Create a running instance of new agent definition");
-        PlataformController plataform =new PlataformController();
-    	agentServer=plataform.getAgentServer();
+    public String postAgents(@PathVariable String id, HttpServletRequest request) throws Exception {
+        logger.info("Create a running instance of new agent definition");
+        PlataformController plataform = new PlataformController();
+        agentServer = plataform.getAgentServer();
 
-    	User user = agentServer.users.get(id);
-    	
- 		JSONObject agentInstanceJson = util.getJsonRequest(request);
-		if (agentInstanceJson == null)
-			throw new AgentAppServerBadRequestException(
-					"Invalid agent definition JSON object");
-		logger.info("Adding new agent instance for user: " + user.id);
+        User user = agentServer.users.get(id);
 
-		// Parse and add the agent instance
-		AgentInstance agentInstance = agentServer.addAgentInstance(user,
-				agentInstanceJson);
-		// Done
-		return "Update was successful";
-	} 
+        JSONObject agentInstanceJson = util.getJsonRequest(request);
+        if (agentInstanceJson == null)
+            throw new AgentAppServerBadRequestException(
+                    "Invalid agent definition JSON object");
+        logger.info("Adding new agent instance for user: " + user.id);
 
-	@RequestMapping(value = "/users/{id}/agents/{name}", method = RequestMethod.PUT, produces=MediaType.APPLICATION_JSON_VALUE)
+        // Parse and add the agent instance
+        AgentInstance agentInstance = agentServer.addAgentInstance(user,
+                agentInstanceJson);
+        // Done
+        return "Update was successful";
+    }
+
+    @RequestMapping(value = "/users/{id}/agents/{name}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-	public String putAgents(@PathVariable String id,@PathVariable String name,HttpServletRequest request) throws Exception  {
+    public String putAgents(@PathVariable String id, @PathVariable String name, HttpServletRequest request) throws Exception {
 
-	 	PlataformController plataform =new PlataformController();
-			agentServer=plataform.getAgentServer();
-	    	User user = agentServer.users.get(id);
-		String agentName = name;
-		JSONObject agentJson =  util.getJsonRequest(request);;
+        PlataformController plataform = new PlataformController();
+        agentServer = plataform.getAgentServer();
+        User user = agentServer.users.get(id);
+        String agentName = name;
+        JSONObject agentJson = util.getJsonRequest(request);
+        ;
 
-		if (agentName == null)
-			throw new AgentAppServerBadRequestException(
-					"Missing agent instance name path parameter");
-		if (agentName.trim().length() == 0)
-			throw new AgentAppServerBadRequestException(
-					"Empty agent instance name path parameter");
-		if (!agentServer.agentInstances.get(user.id).containsKey(agentName))
-			throw new AgentAppServerException(
-					HttpServletResponse.SC_NOT_FOUND,
-					"No agent instance with that name for that user");
+        if (agentName == null)
+            throw new AgentAppServerBadRequestException(
+                    "Missing agent instance name path parameter");
+        if (agentName.trim().length() == 0)
+            throw new AgentAppServerBadRequestException(
+                    "Empty agent instance name path parameter");
+        if (!agentServer.agentInstances.get(user.id).containsKey(agentName))
+            throw new AgentAppServerException(
+                    HttpServletResponse.SC_NOT_FOUND,
+                    "No agent instance with that name for that user");
 
-		AgentInstance agent = agentServer.agentInstances.get(user.id).get(
-				agentName);
-		String agentDefinitionName = agent.agentDefinition.name;
-		logger.info("Updating agent instance named: " + agentName
-				+ " with definition: " + agentDefinitionName
-				+ " for user: " + user.id);
+        AgentInstance agent = agentServer.agentInstances.get(user.id).get(
+                agentName);
+        String agentDefinitionName = agent.agentDefinition.name;
+        logger.info("Updating agent instance named: " + agentName
+                + " with definition: " + agentDefinitionName
+                + " for user: " + user.id);
 
-		// Parse the updated agent instance info
-		AgentInstance newAgentInstance = AgentInstance.fromJson(
-				agentServer, user, agentJson, agent.agentDefinition, true);
+        // Parse the updated agent instance info
+        AgentInstance newAgentInstance = AgentInstance.fromJson(
+                agentServer, user, agentJson, agent.agentDefinition, true);
 
-		// Update the agent instance info
-		agent.update(agentServer, newAgentInstance);
+        // Update the agent instance info
+        agent.update(agentServer, newAgentInstance);
 
-		// Update was successful
-		return "Update was successful";
-	
-	} 
+        // Update was successful
+        return "Update was successful";
 
-	@RequestMapping(value = "/users/{id}/agents/{name}/dismiss_exceptions", method = RequestMethod.PUT, produces=MediaType.APPLICATION_JSON_VALUE)
+    }
+
+    @RequestMapping(value = "/users/{id}/agents/{name}/dismiss_exceptions", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-	public String putAgentsinstance(@PathVariable String id,@PathVariable String name,HttpServletRequest request) throws Exception  {
+    public String putAgentsinstance(@PathVariable String id, @PathVariable String name, HttpServletRequest request) throws Exception {
 
-		PlataformController plataform =new PlataformController();
-		agentServer=plataform.getAgentServer();
-    	User user = agentServer.users.get(id);
-		String agentName = name;
+        PlataformController plataform = new PlataformController();
+        agentServer = plataform.getAgentServer();
+        User user = agentServer.users.get(id);
+        String agentName = name;
 
-		if (agentName == null)
-			throw new AgentAppServerBadRequestException(
-					"Missing agent instance name path parameter");
-		if (agentName.trim().length() == 0)
-			throw new AgentAppServerBadRequestException(
-					"Empty agent instance name path parameter");
-		if (!agentServer.agentInstances.get(user.id).containsKey(agentName))
-			throw new AgentAppServerException(
-					HttpServletResponse.SC_NOT_FOUND,
-					"No agent instance with that name for that user");
+        if (agentName == null)
+            throw new AgentAppServerBadRequestException(
+                    "Missing agent instance name path parameter");
+        if (agentName.trim().length() == 0)
+            throw new AgentAppServerBadRequestException(
+                    "Empty agent instance name path parameter");
+        if (!agentServer.agentInstances.get(user.id).containsKey(agentName))
+            throw new AgentAppServerException(
+                    HttpServletResponse.SC_NOT_FOUND,
+                    "No agent instance with that name for that user");
 
-		logger.info("Dismissing exceptions for agent instance " + agentName
-				+ " for user: " + user.id);
-		AgentInstanceList agentMap = agentServer.agentInstances
-				.get(user.id);
-		AgentInstance agent = agentMap.get(agentName);
+        logger.info("Dismissing exceptions for agent instance " + agentName
+                + " for user: " + user.id);
+        AgentInstanceList agentMap = agentServer.agentInstances
+                .get(user.id);
+        AgentInstance agent = agentMap.get(agentName);
 
-		// Set the time of dismissal for exceptions
-		agent.lastDismissedExceptionTime = System.currentTimeMillis();
+        // Set the time of dismissal for exceptions
+        agent.lastDismissedExceptionTime = System.currentTimeMillis();
 
-		// Done
-		return agent.toString();
-	
-	} 
+        // Done
+        return agent.toString();
 
-    @RequestMapping(value = "/users/{id}/agents/{name}/notifications/{notificationName}", method = RequestMethod.PUT, produces=MediaType.APPLICATION_JSON_VALUE)
+    }
+
+    @RequestMapping(value = "/users/{id}/agents/{name}/notifications/{notificationName}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-	public String putAgentsinstanceNotifications(@PathVariable String id,@PathVariable String name,@PathVariable String notificationName,HttpServletRequest request) throws Exception  {
+    public String putAgentsinstanceNotifications(@PathVariable String id, @PathVariable String name, @PathVariable String notificationName, HttpServletRequest request) throws Exception {
 
-		PlataformController plataform =new PlataformController();
-		agentServer=plataform.getAgentServer();
-    	User user = agentServer.users.get(id);
-		String agentName =name;
+        PlataformController plataform = new PlataformController();
+        agentServer = plataform.getAgentServer();
+        User user = agentServer.users.get(id);
+        String agentName = name;
 
-        String notificationNames = notificationName.length() >= 7 ? notificationName:null;
+        String notificationNames = notificationName.length() >= 7 ? notificationName : null;
 
-		String responseParam = request.getParameter("response");
-		String responseChoice = request.getParameter("response_choice");
-		String comment = request.getParameter("comment");
+        String responseParam = request.getParameter("response");
+        String responseChoice = request.getParameter("response_choice");
+        String comment = request.getParameter("comment");
 
-		if (agentName == null)
-			throw new AgentAppServerBadRequestException(
-					"Missing agent instance name path parameter");
-		if (agentName.trim().length() == 0)
-			throw new AgentAppServerBadRequestException(
-					"Empty agent instance name path parameter");
-		if (!agentServer.agentInstances.get(user.id).containsKey(agentName))
-			throw new AgentAppServerException(
-					HttpServletResponse.SC_NOT_FOUND,
-					"No agent instance with that name for that user");
-		if (notificationNames == null)
-			throw new AgentAppServerBadRequestException(
-					"Missing notification name path parameter");
-		if (notificationNames.trim().length() == 0)
-			throw new AgentAppServerBadRequestException(
-					"Empty notification name path parameter");
-		if (responseParam == null)
-			throw new AgentAppServerBadRequestException(
-					"Missing response query parameter");
-		if (responseParam.trim().length() == 0)
-			throw new AgentAppServerBadRequestException(
-					"Empty response query parameter");
-		if (!NotificationInstance.responses.contains(responseParam))
-			throw new AgentAppServerBadRequestException(
-					"Unknown response keyword query parameter");
+        if (agentName == null)
+            throw new AgentAppServerBadRequestException(
+                    "Missing agent instance name path parameter");
+        if (agentName.trim().length() == 0)
+            throw new AgentAppServerBadRequestException(
+                    "Empty agent instance name path parameter");
+        if (!agentServer.agentInstances.get(user.id).containsKey(agentName))
+            throw new AgentAppServerException(
+                    HttpServletResponse.SC_NOT_FOUND,
+                    "No agent instance with that name for that user");
+        if (notificationNames == null)
+            throw new AgentAppServerBadRequestException(
+                    "Missing notification name path parameter");
+        if (notificationNames.trim().length() == 0)
+            throw new AgentAppServerBadRequestException(
+                    "Empty notification name path parameter");
+        if (responseParam == null)
+            throw new AgentAppServerBadRequestException(
+                    "Missing response query parameter");
+        if (responseParam.trim().length() == 0)
+            throw new AgentAppServerBadRequestException(
+                    "Empty response query parameter");
+        if (!NotificationInstance.responses.contains(responseParam))
+            throw new AgentAppServerBadRequestException(
+                    "Unknown response keyword query parameter");
 
-		AgentInstanceList agentMap = agentServer.agentInstances
-				.get(user.id);
-		AgentInstance agent = agentMap.get(agentName);
+        AgentInstanceList agentMap = agentServer.agentInstances
+                .get(user.id);
+        AgentInstance agent = agentMap.get(agentName);
 
-		NotificationInstance notificationInstance = agent.notifications
-				.get(notificationNames);
-		if (notificationInstance == null)
-			throw new AgentAppServerBadRequestException(
-					"Undefined notification name for agent instance '"
-							+ agentName + "': " + notificationNames);
-		if (!notificationInstance.pending)
-			throw new AgentAppServerBadRequestException(
-					"Cannot respond to notification '" + notificationNames
-							+ "' for agent instance '" + agentName
-							+ "' since it is not pending");
+        NotificationInstance notificationInstance = agent.notifications
+                .get(notificationNames);
+        if (notificationInstance == null)
+            throw new AgentAppServerBadRequestException(
+                    "Undefined notification name for agent instance '"
+                            + agentName + "': " + notificationNames);
+        if (!notificationInstance.pending)
+            throw new AgentAppServerBadRequestException(
+                    "Cannot respond to notification '" + notificationNames
+                            + "' for agent instance '" + agentName
+                            + "' since it is not pending");
 
-		logger.info("Respond to a pending notification '" + notificationNames
-				+ "' for agent instance " + agentName + " for user: "
-				+ user.id);
+        logger.info("Respond to a pending notification '" + notificationNames
+                + "' for agent instance " + agentName + " for user: "
+                + user.id);
 
-		agent.respondToNotification(notificationInstance, responseParam,
-				responseChoice, comment);
+        agent.respondToNotification(notificationInstance, responseParam,
+                responseChoice, comment);
 
-		// Done
-	return null;
-	
-	} 
+        // Done
+        return null;
 
-	@RequestMapping(value ={"/users/{id}/agents/{name}/pause","/users/{id}/agents/{name}/disable"} , method = RequestMethod.PUT, produces=MediaType.APPLICATION_JSON_VALUE)
+    }
+
+    @RequestMapping(value = {"/users/{id}/agents/{name}/pause", "/users/{id}/agents/{name}/disable"}, method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-	public String putAgentpause_disable(@PathVariable String id,@PathVariable String name,HttpServletRequest request) throws Exception  {
+    public String putAgentpause_disable(@PathVariable String id, @PathVariable String name, HttpServletRequest request) throws Exception {
 
-		PlataformController plataform =new PlataformController();
-		agentServer=plataform.getAgentServer();
-    	User user = agentServer.users.get(id);
-		String agentName = name;
+        PlataformController plataform = new PlataformController();
+        agentServer = plataform.getAgentServer();
+        User user = agentServer.users.get(id);
+        String agentName = name;
 
-		if (agentName == null)
-			throw new AgentAppServerBadRequestException(
-					"Missing agent instance name path parameter");
-		if (agentName.trim().length() == 0)
-			throw new AgentAppServerBadRequestException(
-					"Empty agent instance name path parameter");
-		if (!agentServer.agentInstances.get(user.id).containsKey(agentName))
-			throw new AgentAppServerException(
-					HttpServletResponse.SC_NOT_FOUND,
-					"No agent instance with that name for that user");
+        if (agentName == null)
+            throw new AgentAppServerBadRequestException(
+                    "Missing agent instance name path parameter");
+        if (agentName.trim().length() == 0)
+            throw new AgentAppServerBadRequestException(
+                    "Empty agent instance name path parameter");
+        if (!agentServer.agentInstances.get(user.id).containsKey(agentName))
+            throw new AgentAppServerException(
+                    HttpServletResponse.SC_NOT_FOUND,
+                    "No agent instance with that name for that user");
 
-		logger.info("Disabling/pausing agent instance " + agentName
-				+ " for user: " + user.id);
-		AgentInstanceList agentMap = agentServer.agentInstances
-				.get(user.id);
-		AgentInstance agent = agentMap.get(agentName);
+        logger.info("Disabling/pausing agent instance " + agentName
+                + " for user: " + user.id);
+        AgentInstanceList agentMap = agentServer.agentInstances
+                .get(user.id);
+        AgentInstance agent = agentMap.get(agentName);
 
-		// Disable/pause the agent
-		agent.disable();
+        // Disable/pause the agent
+        agent.disable();
 
-		// Done
+        // Done
         JSONObject message = new JSONObject();
         message.put("message", "Disabling/pausing agent instance");
 
         return message.toString();
-	
-	} 
 
-    @RequestMapping(value = {"/users/{id}/agents/{name}/resume","/users/{id}/agents/{name}/enable"}, method = RequestMethod.PUT, produces=MediaType.APPLICATION_JSON_VALUE)
+    }
+
+    @RequestMapping(value = {"/users/{id}/agents/{name}/resume", "/users/{id}/agents/{name}/enable"}, method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-	public String putAgentresume_enable(@PathVariable String id,@PathVariable String name,HttpServletRequest request) throws Exception  {
+    public String putAgentresume_enable(@PathVariable String id, @PathVariable String name, HttpServletRequest request) throws Exception {
 
-		PlataformController plataform =new PlataformController();
-		agentServer=plataform.getAgentServer();
-    	User user = agentServer.users.get(id);
-		String agentName =name;
+        PlataformController plataform = new PlataformController();
+        agentServer = plataform.getAgentServer();
+        User user = agentServer.users.get(id);
+        String agentName = name;
 
-		if (agentName == null)
-			throw new AgentAppServerBadRequestException(
-					"Missing agent instance name path parameter");
-		if (agentName.trim().length() == 0)
-			throw new AgentAppServerBadRequestException(
-					"Empty agent instance name path parameter");
-		if (!agentServer.agentInstances.get(user.id).containsKey(agentName))
-			throw new AgentAppServerException(
-					HttpServletResponse.SC_NOT_FOUND,
-					"No agent instance with that name for that user");
+        if (agentName == null)
+            throw new AgentAppServerBadRequestException(
+                    "Missing agent instance name path parameter");
+        if (agentName.trim().length() == 0)
+            throw new AgentAppServerBadRequestException(
+                    "Empty agent instance name path parameter");
+        if (!agentServer.agentInstances.get(user.id).containsKey(agentName))
+            throw new AgentAppServerException(
+                    HttpServletResponse.SC_NOT_FOUND,
+                    "No agent instance with that name for that user");
 
-		logger.info("Enabling/resuming agent instance " + agentName
-				+ " for user: " + user.id);
-		AgentInstanceList agentMap = agentServer.agentInstances
-				.get(user.id);
-		AgentInstance agent = agentMap.get(agentName);
+        logger.info("Enabling/resuming agent instance " + agentName
+                + " for user: " + user.id);
+        AgentInstanceList agentMap = agentServer.agentInstances
+                .get(user.id);
+        AgentInstance agent = agentMap.get(agentName);
 
-		// Enable/resume the agent
-		agent.enable();
+        // Enable/resume the agent
+        agent.enable();
 
-		// Done
-		return agent.toString();
-	
-	} 
+        // Done
+        return agent.toString();
 
-	@RequestMapping(value = "/users/{id}/agents/{name}/run_script/{scriptName}", method = RequestMethod.PUT, produces=MediaType.APPLICATION_JSON_VALUE)
+    }
+
+    @RequestMapping(value = "/users/{id}/agents/{name}/run_script/{scriptName}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-	public String putAgentRun_script(@PathVariable String id,@PathVariable String name,@PathVariable String scriptName,HttpServletRequest request) throws Exception  {
+    public String putAgentRun_script(@PathVariable String id, @PathVariable String name, @PathVariable String scriptName, HttpServletRequest request) throws Exception {
 
-		PlataformController plataform =new PlataformController();
-		agentServer=plataform.getAgentServer();
-    	User user = agentServer.users.get(id);
-		String agentName = name; 
-		String menssage="";
-		// Capture and convert the arguments to be passed to the script
-		List<Value> arguments = new ArrayList<Value>();
-		String[] argumentStrings = request.getParameterValues("arg");
-		if (argumentStrings != null) {
-			int numArgs = argumentStrings.length;
-			for (int i = 0; i < numArgs; i++) {
-				String argumentString = argumentStrings[i];
-				Value argumentValue = JsonUtils.parseJson(argumentString);
-				arguments.add(argumentValue);
-			}
-		}
+        PlataformController plataform = new PlataformController();
+        agentServer = plataform.getAgentServer();
+        User user = agentServer.users.get(id);
+        String agentName = name;
+        String menssage = "";
+        // Capture and convert the arguments to be passed to the script
+        List<Value> arguments = new ArrayList<Value>();
+        String[] argumentStrings = request.getParameterValues("arg");
+        if (argumentStrings != null) {
+            int numArgs = argumentStrings.length;
+            for (int i = 0; i < numArgs; i++) {
+                String argumentString = argumentStrings[i];
+                Value argumentValue = JsonUtils.parseJson(argumentString);
+                arguments.add(argumentValue);
+            }
+        }
 
-		if (agentName == null)
-			throw new AgentAppServerBadRequestException(
-					"Missing agent instance name path parameter");
-		if (agentName.trim().length() == 0)
-			throw new AgentAppServerBadRequestException(
-					"Empty agent instance name path parameter");
-		if (!agentServer.agentInstances.get(user.id).containsKey(agentName))
-			throw new AgentAppServerException(
-					HttpServletResponse.SC_NOT_FOUND,
-					"No agent instance with that name for that user");
-		if (scriptName == null)
-			throw new AgentAppServerBadRequestException(
-					"Missing agent instance script name path parameter");
-		if (scriptName.trim().length() == 0)
-			throw new AgentAppServerBadRequestException(
-					"Empty agent instance script name path parameter");
+        if (agentName == null)
+            throw new AgentAppServerBadRequestException(
+                    "Missing agent instance name path parameter");
+        if (agentName.trim().length() == 0)
+            throw new AgentAppServerBadRequestException(
+                    "Empty agent instance name path parameter");
+        if (!agentServer.agentInstances.get(user.id).containsKey(agentName))
+            throw new AgentAppServerException(
+                    HttpServletResponse.SC_NOT_FOUND,
+                    "No agent instance with that name for that user");
+        if (scriptName == null)
+            throw new AgentAppServerBadRequestException(
+                    "Missing agent instance script name path parameter");
+        if (scriptName.trim().length() == 0)
+            throw new AgentAppServerBadRequestException(
+                    "Empty agent instance script name path parameter");
 
-		ScriptDefinition scriptDefinition = agentServer.agentInstances.get(
-				user.id).get(agentName).agentDefinition.scripts
-				.get(scriptName);
-		if (scriptDefinition == null)
-			throw new AgentAppServerException(
-					HttpServletResponse.SC_NOT_FOUND,
-					"Undefined public agent script for that user: "
-							+ scriptName);
-		if (!scriptDefinition.publicAccess)
-			throw new AgentAppServerException(
-					HttpServletResponse.SC_NOT_FOUND,
-					"Undefined public agent script for that user: "
-							+ scriptName);
+        ScriptDefinition scriptDefinition = agentServer.agentInstances.get(
+                user.id).get(agentName).agentDefinition.scripts
+                .get(scriptName);
+        if (scriptDefinition == null)
+            throw new AgentAppServerException(
+                    HttpServletResponse.SC_NOT_FOUND,
+                    "Undefined public agent script for that user: "
+                            + scriptName);
+        if (!scriptDefinition.publicAccess)
+            throw new AgentAppServerException(
+                    HttpServletResponse.SC_NOT_FOUND,
+                    "Undefined public agent script for that user: "
+                            + scriptName);
 
-		logger.info("Call a public script for agent instance " + agentName
-				+ " for user: " + user.id);
-		AgentInstanceList agentMap = agentServer.agentInstances
-				.get(user.id);
-		AgentInstance agent = agentMap.get(agentName);
+        logger.info("Call a public script for agent instance " + agentName
+                + " for user: " + user.id);
+        AgentInstanceList agentMap = agentServer.agentInstances
+                .get(user.id);
+        AgentInstance agent = agentMap.get(agentName);
 
-		// Call the script
-		List<ExceptionInfo> exceptions = agent.exceptionHistory;
-		int numExceptions = exceptions.size();
-		Value returnValue = agent.runScript(scriptName, arguments);
+        // Call the script
+        List<ExceptionInfo> exceptions = agent.exceptionHistory;
+        int numExceptions = exceptions.size();
+        Value returnValue = agent.runScript(scriptName, arguments);
 
-		// Check for exceptions
-		int numExceptionsAfter = exceptions.size();
-		if (numExceptions != numExceptionsAfter)
-		{
-			//handleException(400, exceptions.get(numExceptions).exception);
-		}
-		else {
-			// Done; successful
-			JSONObject returnValueObject = new JSONObject();
-			returnValueObject.put("return_value",
-					returnValue.toJsonObject());
-			menssage= returnValueObject.toString();
-		}
-	return menssage;
-	}
+        // Check for exceptions
+        int numExceptionsAfter = exceptions.size();
+        if (numExceptions != numExceptionsAfter) {
+            //handleException(400, exceptions.get(numExceptions).exception);
+        } else {
+            // Done; successful
+            JSONObject returnValueObject = new JSONObject();
+            returnValueObject.put("return_value",
+                    returnValue.toJsonObject());
+            menssage = returnValueObject.toString();
+        }
+        return menssage;
+    }
 
-    @RequestMapping(value = "/users/{id}/agents", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/users/{id}/agents", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public String getAgents(@PathVariable String id) throws Exception  {
+    public String getAgents(@PathVariable String id) throws Exception {
         logger.info("Getting list of all agent instances for a user");
-        PlataformController plataform =new PlataformController();
-        agentServer=plataform.getAgentServer();
+        PlataformController plataform = new PlataformController();
+        agentServer = plataform.getAgentServer();
         User user = agentServer.users.get(id);
 
         JSONArray agentInstancesArrayJson = new JSONArray();
@@ -358,7 +359,7 @@ public class AgentController {
             JSONObject agentInstanceJson = new JsonListMap();
             agentInstanceJson.put("user", agentInstance.user.id);
             agentInstanceJson.put("name", agentInstance.name);
-            agentInstanceJson.put("definition",agentInstance.agentDefinition.name);
+            agentInstanceJson.put("definition", agentInstance.agentDefinition.name);
             // TODO: Add the SHA for this instance
             agentInstanceJson.put("description", agentInstance.description);
             agentInstancesArrayJson.put(agentInstanceJson);
@@ -369,9 +370,9 @@ public class AgentController {
         return agentInstancesJson.toString(4);
     }
 
-    @RequestMapping(value = "/users/{id}/agents/{name}",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/users/{id}/agents/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public String getAgentName(@PathVariable String id, @PathVariable String name, HttpServletRequest request) throws Exception    {
+    public String getAgentName(@PathVariable String id, @PathVariable String name, HttpServletRequest request) throws Exception {
 
         PlataformController plataformController = new PlataformController();
         agentServer = plataformController.getAgentServer();
@@ -402,9 +403,9 @@ public class AgentController {
         return agentInstance.toJson(includeState, count).toString();
     }
 
-    @RequestMapping(value = "/users/{id}/agents/{name}/status",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/users/{id}/agents/{name}/status", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public String getAgentNameStatus(@PathVariable String id, @PathVariable String name, HttpServletRequest request) throws Exception    {
+    public String getAgentNameStatus(@PathVariable String id, @PathVariable String name, HttpServletRequest request) throws Exception {
 
         PlataformController plataformController = new PlataformController();
         agentServer = plataformController.getAgentServer();
@@ -430,15 +431,15 @@ public class AgentController {
             throw new AgentAppServerException(HttpServletResponse.SC_FOUND, "No agent instance with that name for that user");
         }
         logger.info("Getting status for agent instance" + agentName + " for user:" + user.id);
-        AgentInstanceList agentMap=agentServer.agentInstances.get(user.id);
+        AgentInstanceList agentMap = agentServer.agentInstances.get(user.id);
 
         AgentInstance agentInstance = agentMap.get(agentName);
         return agentInstance.toJson(includeState, count).toString();
     }
 
-    @RequestMapping(value = "/users/{id}/agents/{name}/state",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/users/{id}/agents/{name}/state", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public String getAgentNameState(@PathVariable String id, @PathVariable String name, HttpServletRequest request) throws Exception    {
+    public String getAgentNameState(@PathVariable String id, @PathVariable String name, HttpServletRequest request) throws Exception {
 
         PlataformController plataformController = new PlataformController();
         agentServer = plataformController.getAgentServer();
@@ -462,15 +463,15 @@ public class AgentController {
             throw new AgentAppServerException(HttpServletResponse.SC_FOUND, "No agent instance with that name for that user");
         }
         logger.info("Getting status for agent instance" + agentName + " for user:" + user.id);
-        AgentInstanceList agentMap=agentServer.agentInstances.get(user.id);
+        AgentInstanceList agentMap = agentServer.agentInstances.get(user.id);
 
         AgentInstance agentInstance = agentMap.get(agentName);
         return agentInstance.toJson(true, count).toString();
     }
 
-    @RequestMapping(value = "/users/{id}/agents/{name}/output_history",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/users/{id}/agents/{name}/output_history", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public String getAgentNameOutput_history(@PathVariable String id, @PathVariable String name, HttpServletRequest request) throws Exception    {
+    public String getAgentNameOutput_history(@PathVariable String id, @PathVariable String name, HttpServletRequest request) throws Exception {
 
         PlataformController plataformController = new PlataformController();
         agentServer = plataformController.getAgentServer();
@@ -495,49 +496,44 @@ public class AgentController {
             throw new AgentAppServerException(HttpServletResponse.SC_FOUND, "No agent instance with that name for that user");
         }
         logger.info("Getting status for agent instance" + agentName + " for user:" + user.id);
-        AgentInstanceList agentMap=agentServer.agentInstances.get(user.id);
+        AgentInstanceList agentMap = agentServer.agentInstances.get(user.id);
 
         AgentInstance agent = agentMap.get(agentName);
-        if(count<=0)
-        {
-            count=agent.defaultOutputCount;
+        if (count <= 0) {
+            count = agent.defaultOutputCount;
         }
-        if(count>agent.outputLimit)
-        {
-            count=agent.outputLimit;
+        if (count > agent.outputLimit) {
+            count = agent.outputLimit;
         }
-        int outupSize=agent.outputHistory.size();
+        int outupSize = agent.outputHistory.size();
 
-        if(count>outupSize)
-        {
-            count=outupSize;
+        if (count > outupSize) {
+            count = outupSize;
         }
         //compute starting history index
-        int start=outupSize-count;
-        int n=agent.outputHistory.size();
-        if(n>4)
-        {
-            SymbolValues s1=agent.outputHistory.get(n-2).output;
-            SymbolValues s2=agent.outputHistory.get(n-1).output;
-            boolean eq =s1.equals(s2);
+        int start = outupSize - count;
+        int n = agent.outputHistory.size();
+        if (n > 4) {
+            SymbolValues s1 = agent.outputHistory.get(n - 2).output;
+            SymbolValues s2 = agent.outputHistory.get(n - 1).output;
+            boolean eq = s1.equals(s2);
         }
         //Build a JSON array of output rows
-        JSONArray outputJson =new JSONArray();
-        for(int i =start; i < outupSize;i++)
-        {
-            OutputRecord outputs =agent.outputHistory.get(i);
+        JSONArray outputJson = new JSONArray();
+        for (int i = start; i < outupSize; i++) {
+            OutputRecord outputs = agent.outputHistory.get(i);
             outputJson.put(outputs.output.toJson());
         }
 
         // Wrap the array in an object since that is what output code
         // expects
-        JSONObject outpHistory =new JsonListMap();
-        outpHistory.put("output_history",outputJson);
+        JSONObject outpHistory = new JsonListMap();
+        outpHistory.put("output_history", outputJson);
 
         return outpHistory.toString();
     }
 
-    @RequestMapping(value = "/users/{id}/agents/{name}/output",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/users/{id}/agents/{name}/output", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public String getAgentNameOutput(@PathVariable String id, @PathVariable String name) throws Exception {
         PlataformController plataformController = new PlataformController();
@@ -587,14 +583,14 @@ public class AgentController {
                     .toJsonObject());
         }
 
-      return outputJson.toString();
+        return outputJson.toString();
     }
 
-    @RequestMapping(value = "/users/{id}/agents/{name}/notifications", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/users/{id}/agents/{name}/notifications", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public String getAgentsinstanceNotifications(@PathVariable String id,@PathVariable String name) throws Exception   {
-        PlataformController plataformController=new PlataformController();
-        agentServer=plataformController.getAgentServer();
+    public String getAgentsinstanceNotifications(@PathVariable String id, @PathVariable String name) throws Exception {
+        PlataformController plataformController = new PlataformController();
+        agentServer = plataformController.getAgentServer();
         User user = agentServer.getUser(id);
         String agentName = name;
 
@@ -648,9 +644,9 @@ public class AgentController {
         return wrapperJson.toString();
     }
 
-    @RequestMapping(value = "/users/{id}/agents/{name}/notifications/{notificationNames}", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/users/{id}/agents/{name}/notifications/{notificationNames}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public String getAgentsinstanceNotificationsName(@PathVariable String id,@PathVariable String name,@PathVariable String notificationNames,HttpServletRequest request) throws Exception {
+    public String getAgentsinstanceNotificationsName(@PathVariable String id, @PathVariable String name, @PathVariable String notificationNames, HttpServletRequest request) throws Exception {
 
         PlataformController plataform = new PlataformController();
         agentServer = plataform.getAgentServer();

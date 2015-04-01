@@ -38,7 +38,7 @@ public class PlataformController {
         return this.agentServer;
     }
 
-    @RequestMapping(value ={"/status/start","/status/start2"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = {"/status/start", "/status/start2"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public String Start() throws Exception {
         logger.info("Starting agent server");
@@ -249,7 +249,7 @@ public class PlataformController {
 
     }
 
-    @RequestMapping(value = "/status/pause", method = RequestMethod.PUT,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/status/pause", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public String putStatusPause() throws Exception {
 
@@ -262,10 +262,9 @@ public class PlataformController {
 
     }
 
-    @RequestMapping(value = "/run", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/run", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public String getRun(HttpServletRequest request) throws Exception
-    {
+    public String getRun(HttpServletRequest request) throws Exception {
 
         try {
             BufferedReader reader = request.getReader();
@@ -299,11 +298,11 @@ public class PlataformController {
         } catch (Exception e) {
             logger.info("Run Exception: " + e);
         }
-       return null;
+        return null;
 
     }
 
-    @RequestMapping(value = "/status/restart", method = RequestMethod.PUT,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/status/restart", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public String putStatusrestart() throws Exception {
 
@@ -328,7 +327,7 @@ public class PlataformController {
 
     }
 
-    @RequestMapping(value = "/status/resume", method = RequestMethod.PUT,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/status/resume", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public String putStatusresume() throws Exception {
 
@@ -342,7 +341,7 @@ public class PlataformController {
 
     }
 
-    @RequestMapping(value = "/status/shutdown", method = RequestMethod.PUT,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/status/shutdown", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public String putStatusShutdown() throws Exception {
 
@@ -356,7 +355,7 @@ public class PlataformController {
         return message.toString();
     }
 
-    @RequestMapping(value = "/status/start", method = RequestMethod.PUT,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/status/start", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public String putStatusStart() throws Exception {
         JSONObject message = new JSONObject();
@@ -369,11 +368,11 @@ public class PlataformController {
             message.put("message", "Re-Start Agent server");
 
         }
-        return  message.toString();
+        return message.toString();
 
     }
 
-    @RequestMapping(value = "/status/stop", method = RequestMethod.PUT,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/status/stop", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public String putStatusStop() throws Exception {
 

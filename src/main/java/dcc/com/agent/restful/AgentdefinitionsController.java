@@ -20,71 +20,71 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class AgentdefinitionsController {
-	protected static Logger logger = Logger.getLogger(UsersController.class);
-	public AgentServer agentServer;
-	public Utils util=new Utils();
-   
-     
-    @RequestMapping(value = "/users/{id}/agent_definitions", method = RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+    protected static Logger logger = Logger.getLogger(UsersController.class);
+    public AgentServer agentServer;
+    public Utils util = new Utils();
+
+
+    @RequestMapping(value = "/users/{id}/agent_definitions", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-	public String postAgentDefinition(@PathVariable String id,HttpServletRequest request) throws Exception  {
-    	PlataformController plataform =new PlataformController();
-		agentServer=plataform.getAgentServer();
-    	User user = agentServer.users.get(id);
-    	
- 		JSONObject agentDefinitionJson = util.getJsonRequest(request);
-		if (agentDefinitionJson == null)
-			throw new AgentAppServerBadRequestException(
-					"Invalid agent definition JSON object");
-		logger.info("Adding new agent definition for user: " + user.id);
-		// Parse and add the agent definition
-		AgentDefinition agentDefinition = agentServer.addAgentDefinition(
-				user, agentDefinitionJson);
-		// Done
-		return agentDefinition.toString();
-	}
+    public String postAgentDefinition(@PathVariable String id, HttpServletRequest request) throws Exception {
+        PlataformController plataform = new PlataformController();
+        agentServer = plataform.getAgentServer();
+        User user = agentServer.users.get(id);
 
-    @RequestMapping(value = "/users/{id}/agent_definitions/{name}", method = RequestMethod.PUT, produces=MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-  	public String putAgentDefinition(@PathVariable String id,@PathVariable String name,HttpServletRequest request) throws Exception  {
-    	PlataformController plataform =new PlataformController();
-		agentServer=plataform.getAgentServer();
-    	User user = agentServer.users.get(id);
-		String agentName = name;
-		JSONObject agentJson = util.getJsonRequest(request);
-        logger.info("Information PUT agent_definitions:"+user.id+agentName);
-		if (agentName == null)
-			throw new AgentAppServerBadRequestException(
-					"Missing agent definition name path parameter");
-		if (agentName.trim().length() == 0)
-			throw new AgentAppServerBadRequestException(
-					"Empty agent definition name path parameter");
-		if (!agentServer.users.containsKey(user.id))
-			throw new AgentAppServerBadRequestException("Unknown user id");
-
-		AgentDefinition agent = agentServer.agentDefinitions.get(user.id)
-				.get(agentName);
-		logger.info("Updating agent definition named: " + agentName
-				+ " for user: " + user.id);
-
-		// Parse the updated agent definition info
-		AgentDefinition newAgentDefinition = AgentDefinition.fromJson(
-				agentServer, user, agentJson, true);
-
-		// Update the agent definition info
-		agent.update(agentServer, newAgentDefinition);
-
-		// Update was successful
-		return "Update was successful";
-	
+        JSONObject agentDefinitionJson = util.getJsonRequest(request);
+        if (agentDefinitionJson == null)
+            throw new AgentAppServerBadRequestException(
+                    "Invalid agent definition JSON object");
+        logger.info("Adding new agent definition for user: " + user.id);
+        // Parse and add the agent definition
+        AgentDefinition agentDefinition = agentServer.addAgentDefinition(
+                user, agentDefinitionJson);
+        // Done
+        return agentDefinition.toString();
     }
 
-    @RequestMapping(value = "/users/{id}/agent_definitions", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/users/{id}/agent_definitions/{name}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public String putAgentDefinition(@PathVariable String id, @PathVariable String name, HttpServletRequest request) throws Exception {
+        PlataformController plataform = new PlataformController();
+        agentServer = plataform.getAgentServer();
+        User user = agentServer.users.get(id);
+        String agentName = name;
+        JSONObject agentJson = util.getJsonRequest(request);
+        logger.info("Information PUT agent_definitions:" + user.id + agentName);
+        if (agentName == null)
+            throw new AgentAppServerBadRequestException(
+                    "Missing agent definition name path parameter");
+        if (agentName.trim().length() == 0)
+            throw new AgentAppServerBadRequestException(
+                    "Empty agent definition name path parameter");
+        if (!agentServer.users.containsKey(user.id))
+            throw new AgentAppServerBadRequestException("Unknown user id");
+
+        AgentDefinition agent = agentServer.agentDefinitions.get(user.id)
+                .get(agentName);
+        logger.info("Updating agent definition named: " + agentName
+                + " for user: " + user.id);
+
+        // Parse the updated agent definition info
+        AgentDefinition newAgentDefinition = AgentDefinition.fromJson(
+                agentServer, user, agentJson, true);
+
+        // Update the agent definition info
+        agent.update(agentServer, newAgentDefinition);
+
+        // Update was successful
+        return "Update was successful";
+
+    }
+
+    @RequestMapping(value = "/users/{id}/agent_definitions", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public String getAgentDefinitionName(@PathVariable String id) throws Exception {
-        PlataformController plataformController=new PlataformController();
-        agentServer=plataformController.getAgentServer();
-        User user =agentServer.users.get(id);
+        PlataformController plataformController = new PlataformController();
+        agentServer = plataformController.getAgentServer();
+        User user = agentServer.users.get(id);
 
         logger.info("Getting list of all agent definitions for user Id: " + user.id);
 
@@ -92,7 +92,7 @@ public class AgentdefinitionsController {
         JSONArray agentDefinitionsArrayJson = new JSONArray();
         for (AgentDefinition agentDefinition : agentServer.agentDefinitions.get(user.id)) {
             // Generate JSON for short summary of agent definition
-            logger.info("Getting list of all agent definitions for user Id: " +agentDefinition.user.id);
+            logger.info("Getting list of all agent definitions for user Id: " + agentDefinition.user.id);
             JSONObject agentDefinitionJson = new JsonListMap();
             agentDefinitionJson.put("user", agentDefinition.user.id);
             agentDefinitionJson.put("name", agentDefinition.name);
@@ -105,12 +105,12 @@ public class AgentdefinitionsController {
 
     }
 
-    @RequestMapping(value = "/users/{id}/agent_definitions/{name}", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/users/{id}/agent_definitions/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public String getAgentDefinitions(@PathVariable String id,@PathVariable String name) throws Exception  {
+    public String getAgentDefinitions(@PathVariable String id, @PathVariable String name) throws Exception {
 
-        PlataformController plataform =new PlataformController();
-        agentServer=plataform.getAgentServer();
+        PlataformController plataform = new PlataformController();
+        agentServer = plataform.getAgentServer();
         User user = agentServer.users.get(id);
         String agentName = name;
         if (agentName == null)

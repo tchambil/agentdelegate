@@ -14,13 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class UsersController {
-	protected static Logger logger = Logger.getLogger(UsersController.class);
+    protected static Logger logger = Logger.getLogger(UsersController.class);
 
-	public AgentServer agentServer;
-	public Utils util=new Utils();
+    public AgentServer agentServer;
+    public Utils util = new Utils();
+
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-	public boolean postUser(HttpServletRequest request)	throws Exception {
+    public boolean postUser(HttpServletRequest request) throws Exception {
         // User can specify parameters in JSON or as query parameters
         // Query overrides JSON if query parameter is non-null
         PlataformController plataform = new PlataformController();
@@ -130,87 +131,87 @@ public class UsersController {
     }
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(HttpStatus.OK)
-	public User getUser(@PathVariable String id) throws Exception {
-		logger.info("Getting detailed info for a specified user Id:" + id);
-		PlataformController plataform = new PlataformController();
-		agentServer = plataform.getAgentServer();
-		User users = agentServer.users.get(id);
-		return users;
-	}
-	
-	@RequestMapping(value = "/users/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(HttpStatus.OK)
-	public User putUser(@PathVariable String id,HttpServletRequest request) throws Exception {
-		// Parse the user info JSON from posted entity 
-		JSONObject userJson = util.getJsonRequest(request);
-		PlataformController plataform = new PlataformController();
-		agentServer = plataform.getAgentServer();
-		User user = agentServer.users.get(id);
-		logger.info("Updating existing user: " + user.id);
-		// Parse the updated user info
-		User newUser = User.fromJson(userJson, true);
-		// Update the user info
-		user.update(agentServer, newUser);
-		// Update was successful
-		return user;
-	}
+    @ResponseStatus(HttpStatus.OK)
+    public User getUser(@PathVariable String id) throws Exception {
+        logger.info("Getting detailed info for a specified user Id:" + id);
+        PlataformController plataform = new PlataformController();
+        agentServer = plataform.getAgentServer();
+        User users = agentServer.users.get(id);
+        return users;
+    }
 
-	@RequestMapping(value = "/users/{id}/disable", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(HttpStatus.OK)
-	public User putUserDisable(@PathVariable String id,HttpServletRequest request) throws Exception { 
-		PlataformController plataform = new PlataformController();
-		agentServer = plataform.getAgentServer();
-		User user = agentServer.users.get(id);
-		String allActivityString = request.getParameter("all_activity");
-		boolean disableAllActivity = allActivityString == null
-				|| (allActivityString.equalsIgnoreCase("true")
-						|| allActivityString.equalsIgnoreCase("yes") || allActivityString
-							.equalsIgnoreCase("on"));
-		String newActivityString = request.getParameter("new_activity");
-		boolean disableNewActivity = newActivityString == null
-				|| (newActivityString.equalsIgnoreCase("true")
-						|| newActivityString.equalsIgnoreCase("yes") || newActivityString
-							.equalsIgnoreCase("on"));
-		logger.info("Disabling user: " + user.id + " diable all activity: "
-				+ disableAllActivity + " disable new activity: "
-				+ disableNewActivity);
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public User putUser(@PathVariable String id, HttpServletRequest request) throws Exception {
+        // Parse the user info JSON from posted entity
+        JSONObject userJson = util.getJsonRequest(request);
+        PlataformController plataform = new PlataformController();
+        agentServer = plataform.getAgentServer();
+        User user = agentServer.users.get(id);
+        logger.info("Updating existing user: " + user.id);
+        // Parse the updated user info
+        User newUser = User.fromJson(userJson, true);
+        // Update the user info
+        user.update(agentServer, newUser);
+        // Update was successful
+        return user;
+    }
 
-		// Disable user as directed
-		user.enabled = !disableAllActivity;
-		user.newActivityEnabled = !disableNewActivity;
+    @RequestMapping(value = "/users/{id}/disable", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public User putUserDisable(@PathVariable String id, HttpServletRequest request) throws Exception {
+        PlataformController plataform = new PlataformController();
+        agentServer = plataform.getAgentServer();
+        User user = agentServer.users.get(id);
+        String allActivityString = request.getParameter("all_activity");
+        boolean disableAllActivity = allActivityString == null
+                || (allActivityString.equalsIgnoreCase("true")
+                || allActivityString.equalsIgnoreCase("yes") || allActivityString
+                .equalsIgnoreCase("on"));
+        String newActivityString = request.getParameter("new_activity");
+        boolean disableNewActivity = newActivityString == null
+                || (newActivityString.equalsIgnoreCase("true")
+                || newActivityString.equalsIgnoreCase("yes") || newActivityString
+                .equalsIgnoreCase("on"));
+        logger.info("Disabling user: " + user.id + " diable all activity: "
+                + disableAllActivity + " disable new activity: "
+                + disableNewActivity);
 
-		// Update was successful
-		return user;
-	
-	}
+        // Disable user as directed
+        user.enabled = !disableAllActivity;
+        user.newActivityEnabled = !disableNewActivity;
 
-	@RequestMapping(value = "/users/{id}/enable", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(HttpStatus.OK)
-	public User putUserenable(@PathVariable String id,HttpServletRequest request) throws Exception {
+        // Update was successful
+        return user;
 
-		PlataformController plataform = new PlataformController();
-		agentServer = plataform.getAgentServer();
-		User user = agentServer.users.get(id);
-		String allActivityString = request.getParameter("all_activity");
-		boolean enableAllActivity = allActivityString == null
-				|| (allActivityString.equalsIgnoreCase("true")
-						|| allActivityString.equalsIgnoreCase("yes") || allActivityString
-							.equalsIgnoreCase("on"));
-		String newActivityString = request.getParameter("new_activity");
-		boolean enableNewActivity = newActivityString == null
-				|| (newActivityString.equalsIgnoreCase("true")
-						|| newActivityString.equalsIgnoreCase("yes") || newActivityString
-							.equalsIgnoreCase("on"));
-		logger.info("Enabling user: " + user.id + " enable new activity: "
-				+ enableNewActivity);
+    }
 
-		// Enable user as directed
-		user.enabled = enableAllActivity;
-		user.newActivityEnabled = enableNewActivity;
+    @RequestMapping(value = "/users/{id}/enable", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public User putUserenable(@PathVariable String id, HttpServletRequest request) throws Exception {
 
-		// Update was successful
-	return user;
-	
-	}
+        PlataformController plataform = new PlataformController();
+        agentServer = plataform.getAgentServer();
+        User user = agentServer.users.get(id);
+        String allActivityString = request.getParameter("all_activity");
+        boolean enableAllActivity = allActivityString == null
+                || (allActivityString.equalsIgnoreCase("true")
+                || allActivityString.equalsIgnoreCase("yes") || allActivityString
+                .equalsIgnoreCase("on"));
+        String newActivityString = request.getParameter("new_activity");
+        boolean enableNewActivity = newActivityString == null
+                || (newActivityString.equalsIgnoreCase("true")
+                || newActivityString.equalsIgnoreCase("yes") || newActivityString
+                .equalsIgnoreCase("on"));
+        logger.info("Enabling user: " + user.id + " enable new activity: "
+                + enableNewActivity);
+
+        // Enable user as directed
+        user.enabled = enableAllActivity;
+        user.newActivityEnabled = enableNewActivity;
+
+        // Update was successful
+        return user;
+
+    }
 }
