@@ -1,12 +1,12 @@
 /**
  * Copyright 2012 John W. Krupansky d/b/a Base Technology
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *     
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,68 +23,67 @@ import dcc.com.agent.util.ListMap;
 import org.apache.log4j.Logger;
 
 public class AgentAppServer {
-  static final Logger log = Logger.getLogger(AgentAppServer.class);
- 
-  public static String appServerApiBaseUrl; 
-  public AgentServer agentServer;
+    static final Logger log = Logger.getLogger(AgentAppServer.class);
 
- 
+    public static String appServerApiBaseUrl;
+    public AgentServer agentServer;
 
-  public AgentAppServer() throws RuntimeException, AgentServerException, Exception {
-    this(true);
-  }
 
-   public AgentAppServer(boolean start) throws RuntimeException, AgentServerException,  Exception {
-    this(start, null);
-  }
-
-  public AgentAppServer(boolean start, ListMap<String, String> commandLineproperties) throws RuntimeException, AgentServerException,  Exception {
-	    // Start the agent server.
-	   agentServer = new AgentServer(this);
-	   
-	  //  if (start)
-	    //  start();
-	  }
-
-  public void restart() throws Exception {
-    // Shutdown first
-    shutdown();
-    
-    // And then start up again
-    start();
-  }
-  
-  public void shutdown() throws Exception {
-    stop();
-    // TODO: Should this do something else in addition to stop?
-  }
-
-  public void start() throws Exception {
-    log.info("Starting agent server");
-    try {
-
-      // Start the agent server
-      agentServer.start();
-    } catch (Exception e){
-      log.info("Agent server start exception: " + e);
-      e.printStackTrace();
-      throw e;
+    public AgentAppServer() throws RuntimeException, AgentServerException, Exception {
+        this(true);
     }
-    log.info("Agent server started");
-  }
 
-  public void stop() throws Exception {
-    log.info("Stopping agent server");
-    try {
-      // Stop the embedded Jetty server
-    
-
-      // Stop the agent server
-      agentServer.stop();
-    } catch (Exception e){
-      log.info("Agent server stop exception: " + e);
-      throw e;
+    public AgentAppServer(boolean start) throws RuntimeException, AgentServerException, Exception {
+        this(start, null);
     }
-    log.info("Agent server stopped");
-  }
+
+    public AgentAppServer(boolean start, ListMap<String, String> commandLineproperties) throws RuntimeException, AgentServerException, Exception {
+        // Start the agent server.
+        agentServer = new AgentServer(this);
+
+        //  if (start)
+        //  start();
+    }
+
+    public void restart() throws Exception {
+        // Shutdown first
+        shutdown();
+
+        // And then start up again
+        start();
+    }
+
+    public void shutdown() throws Exception {
+        stop();
+        // TODO: Should this do something else in addition to stop?
+    }
+
+    public void start() throws Exception {
+        log.info("Starting agent server");
+        try {
+
+            // Start the agent server
+            agentServer.start();
+        } catch (Exception e) {
+            log.info("Agent server start exception: " + e);
+            e.printStackTrace();
+            throw e;
+        }
+        log.info("Agent server started");
+    }
+
+    public void stop() throws Exception {
+        log.info("Stopping agent server");
+        try {
+            // Stop the embedded Jetty server
+
+
+            // Stop the agent server
+            agentServer.stop();
+        } catch (Exception e) {
+            log.info("Agent server stop exception: " + e);
+            throw e;
+        }
+        log.info("Agent server stopped");
+    }
 }

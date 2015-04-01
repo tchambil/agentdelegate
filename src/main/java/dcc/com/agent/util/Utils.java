@@ -10,25 +10,21 @@ import java.io.IOException;
 
 public class Utils {
 
-    public JSONObject getJsonRequest(HttpServletRequest request) throws IOException, JSONException
-    {
-    	BufferedReader reader = null;
-		JSONObject requestJson = null;
-		int contentLength = -1;
- 		contentLength = request.getContentLength();
-			reader = request.getReader();
+    public JSONObject getJsonRequest(HttpServletRequest request) throws IOException, JSONException {
+        BufferedReader reader = null;
+        JSONObject requestJson = null;
+        int contentLength = -1;
+        contentLength = request.getContentLength();
+        reader = request.getReader();
 
-		if (contentLength <= 0)
-			{
-				requestJson = new JSONObject();
-			}
-			else 
-			{	
-				requestJson = new JSONObject(new JSONTokener(reader));
-			}
-		 
-		return requestJson;
-	 
-		
+        if (contentLength <= 0) {
+            requestJson = new JSONObject();
+        } else {
+            requestJson = new JSONObject(new JSONTokener(reader));
+        }
+
+        return requestJson;
+
+
     }
 }
