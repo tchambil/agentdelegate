@@ -214,4 +214,20 @@ public class UsersController {
         return user;
 
     }
+
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteUser(@PathVariable String id) throws Exception
+    {
+        PlataformController plataformController = new PlataformController();
+        agentServer = plataformController.getAgentServer();
+        User user = agentServer.users.get(id);
+
+        agentServer.users.remove(user.id);
+        logger.info("Deleted user: " + user.id);
+        JSONObject message = new JSONObject();
+        message.put("message", "Deleted user: "+id);
+        return message.toString();
+
+    }
 }

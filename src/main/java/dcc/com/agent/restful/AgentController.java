@@ -96,7 +96,7 @@ public class AgentController {
 
     @RequestMapping(value = "/users/{id}/agents/{name}/dismiss_exceptions", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public String putAgentsinstance(@PathVariable String id, @PathVariable String name, HttpServletRequest request) throws Exception {
+    public String putAgentdismiss_exceptions(@PathVariable String id, @PathVariable String name, HttpServletRequest request) throws Exception {
 
         PlataformController plataform = new PlataformController();
         agentServer = plataform.getAgentServer();
@@ -728,5 +728,44 @@ public class AgentController {
         return message;
     }
 
+    @RequestMapping(value = "/users/{id}/agents/{name}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteAgentName(@PathVariable String id, @PathVariable String name) throws Exception
+    {
+        PlataformController plataform = new PlataformController();
+        agentServer = plataform.getAgentServer();
+        User user = agentServer.users.get(id);
+
+        String agentInstanceName = name;
+
+        if (agentInstanceName == null)
+            throw new AgentAppServerBadRequestException(
+                    "Missing agent instance name path parameter");
+        if (agentInstanceName.trim().length() == 0)
+            throw new AgentAppServerBadRequestException(
+                    "Empty agent instance name path parameter");
+        if (!agentServer.agentInstances.get(user.id).containsKey(
+                agentInstanceName))
+            throw new AgentAppServerBadRequestException(
+                    "No agent definition with that name for that user");
+
+        AgentInstance agentInstance = agentServer.getAgentInstance(user,
+                agentInstanceName);
+        if (agentInstance == null)
+            throw new AgentAppServerBadRequestException(
+                    "No agent instance named '" + agentInstanceName
+                            + " for user '" + user.id + "'");
+        logger.info("Deleting agent instance named: " + agentInstanceName
+                + " of agent definition named "
+                + agentInstance.agentDefinition.name + " for user: "
+                + user.id);
+
+        // Delete the instance
+        agentServer.removeAgentInstance(agentInstance);
+
+        JSONObject message = new JSONObject();
+        message.put("message", "Deleting agent instance");
+        return message.toString();
+    }
 
 }

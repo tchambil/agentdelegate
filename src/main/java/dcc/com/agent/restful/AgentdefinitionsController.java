@@ -79,6 +79,41 @@ public class AgentdefinitionsController {
 
     }
 
+    @RequestMapping(value = "/users/{id}/agent_definitions/{name}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteAgentDefinition(@PathVariable String id, @PathVariable String name ) throws Exception
+    {
+
+        PlataformController plataform = new PlataformController();
+        agentServer = plataform.getAgentServer();
+        User user = agentServer.users.get(id);
+
+        String agentDefinitionName = name;
+
+        if (agentDefinitionName == null)
+            throw new AgentAppServerBadRequestException(
+                    "Missing agent definition name path parameter");
+        if (agentDefinitionName.trim().length() == 0)
+            throw new AgentAppServerBadRequestException(
+                    "Empty agent definition name path parameter");
+        if (!agentServer.agentDefinitions.get(user.id).containsKey(
+                agentDefinitionName))
+            throw new AgentAppServerBadRequestException(
+                    "No agent definition with that name for that user");
+
+        // Delete the agent definition
+        logger.info("Deleting agent definition named: " + agentDefinitionName
+                + " for user: " + user.id);
+        AgentDefinition agentDefinition = agentServer.getAgentDefinition(
+                user, agentDefinitionName);
+        agentServer.removeAgentDefinition(agentDefinition);
+
+        JSONObject message = new JSONObject();
+        message.put("message", "Deleting agent definition");
+        return message.toString();
+
+    }
+
     @RequestMapping(value = "/users/{id}/agent_definitions", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public String getAgentDefinitionName(@PathVariable String id) throws Exception {

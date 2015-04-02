@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
+import dcc.com.agent.script.intermediate.ExpressionNode;
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 
@@ -52,6 +52,14 @@ public class PlataformController {
         message.put("message", "Starting agent Server successful");
         return message.toString();
 
+    }
+
+    @RequestMapping(value="/",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public String getmain() throws Exception    {
+        JSONObject message = new JSONObject();
+        message.put("message", "Welcome to Agent Server");
+        return message.toString();
     }
 
     @RequestMapping(value = "/config", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -98,6 +106,46 @@ public class PlataformController {
                 .put("agent_definitions", agentDefinitionsArrayJson);
 
         return agentDefinitionsJson.toString();
+    }
+    @RequestMapping(value = "/evaluate", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public String getevaluate(HttpServletRequest request) throws JSONException
+    {  String resultString="";
+        try {
+            BufferedReader reader = request.getReader();
+            String expressionString = null;
+            try {
+                StringBuilder builder = new StringBuilder();
+                char[] buffer = new char[8192];
+                int read;
+                while ((read = reader.read(buffer, 0, buffer.length)) > 0) {
+                    builder.append(buffer, 0, read);
+                }
+                expressionString = builder.toString();
+            } catch (Exception e) {
+                logger.info("Exception reading expression text : " + e);
+            }
+
+            logger.info("Evaluating expression: " + expressionString);
+            AgentDefinition dummyAgentDefinition = new AgentDefinition(
+                    agentServer);
+            AgentInstance dummyAgentInstance = new AgentInstance(
+                    dummyAgentDefinition);
+            ScriptParser parser = new ScriptParser(dummyAgentInstance);
+            ScriptRuntime scriptRuntime = new ScriptRuntime(
+                    dummyAgentInstance);
+            ExpressionNode expressionNode = parser
+                    .parseExpressionString(expressionString);
+            Value valueNode = scriptRuntime.evaluateExpression(
+                    expressionString, expressionNode);
+             resultString = valueNode.getStringValue();
+
+
+        } catch (Exception e) {
+            logger.info("Evaluate Exception: " + e);
+        }
+        return resultString;
+
     }
 
     @RequestMapping(value = "/agents", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
