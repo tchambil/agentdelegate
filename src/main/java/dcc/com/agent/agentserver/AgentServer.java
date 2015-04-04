@@ -129,6 +129,7 @@ public class AgentServer {
 
     public AgentDefinition addAgentDefinition(User user, JSONObject agentJson) throws SymbolException, RuntimeException, AgentServerException {
         // Parse the JSON for the agent definition
+        log.info("Parse the JSON for the agent definition");
         AgentDefinition agentDefinition = AgentDefinition.fromJson(this, user, agentJson);
 
         // Add it to table of agent definitions
@@ -612,17 +613,22 @@ public class AgentServer {
         String agentDescription = agentJson.optString("description");
         if (agentDescription == null || agentDescription.trim().length() == 0)
             agentDescription = "";
-        log.info("Adding new agent instance named: " + agentInstanceName + " for agent definition '" + agentDefinitionName + "' for user: " + user.id);
+       // log.info("Adding new agent instance named: " + agentInstanceName + " for agent definition '" + agentDefinitionName + "' for user: " + user.id);
         AgentInstanceList agentMap = agentInstances.get(user.id);
+      //  log.info("Init Print AgentMap:- - - - - " +agentMap);
+
         if (agentMap == null) {
             agentMap = new AgentInstanceList();
             agentInstances.add(user.id, agentMap);
         }
+        log.info("Finish Print AgentMap:- - - - - " +agentMap);
 
         // Check if referenced agent definition exists
+        //
         AgentDefinitionList userAgentDefinitions = agentDefinitions.get(user.id);
         if (userAgentDefinitions == null)
             throw new AgentServerException("Agent instance '" + agentInstanceName + "' references agent definition '" + agentDefinitionName + "' which does not exist for user '" + user.id + "'");
+
         AgentDefinition agentDefinition = agentDefinitions.nameValueMap.get(user.id).value.get(agentDefinitionName);
         if (agentDefinition == null)
             throw new AgentServerException("Agent instance '" + agentInstanceName + "' references agent definition '" + agentDefinitionName + "' which does not exist for user '" + user.id + "'");

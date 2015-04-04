@@ -16,39 +16,23 @@
 
 package dcc.com.agent.agentserver;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
+import dcc.com.agent.field.Field;
+import dcc.com.agent.field.FieldList;
+import dcc.com.agent.goals.Goal;
+import dcc.com.agent.notification.NotificationDefinition;
+import dcc.com.agent.script.intermediate.*;
+import dcc.com.agent.script.parser.ParserException;
+import dcc.com.agent.script.parser.ScriptParser;
+import dcc.com.agent.script.parser.tokenizer.TokenizerException;
+import dcc.com.agent.script.runtime.value.Value;
+import dcc.com.agent.util.*;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
-import dcc.com.agent.field.Field;
-import dcc.com.agent.field.FieldList;
-import dcc.com.agent.goals.Goal;
-import dcc.com.agent.notification.NotificationDefinition;
-import dcc.com.agent.script.intermediate.ExpressionNode;
-import dcc.com.agent.script.intermediate.ScriptNode;
-import dcc.com.agent.script.intermediate.Symbol;
-import dcc.com.agent.script.intermediate.SymbolException;
-import dcc.com.agent.script.intermediate.SymbolManager;
-import dcc.com.agent.script.intermediate.SymbolTable;
-import dcc.com.agent.script.intermediate.SymbolValues;
-import dcc.com.agent.script.parser.ParserException;
-import dcc.com.agent.script.parser.ScriptParser;
-import dcc.com.agent.script.parser.tokenizer.TokenizerException;
-import dcc.com.agent.script.runtime.value.Value;
-import dcc.com.agent.util.DateUtils;
-import dcc.com.agent.util.JsonListMap;
-import dcc.com.agent.util.JsonUtils;
-import dcc.com.agent.util.NameValue;
-import dcc.com.agent.util.NameValueList;
+import java.text.ParseException;
+import java.util.*;
 
 public class AgentDefinition {
     static final Logger log = Logger.getLogger(AgentDefinition.class);
@@ -161,6 +145,7 @@ public class AgentDefinition {
         // Parse the JSON for the agent definition
 
         // If we have the user, ignore user from JSON
+        log.info("If we have the user, ignore user from JSON");
         if (user == null) {
             String userId = agentJson.optString("user");
             if (userId == null || userId.trim().length() == 0)
@@ -179,7 +164,8 @@ public class AgentDefinition {
         String agentDescription = agentJson.optString("description");
         if (agentDescription == null || agentDescription.trim().length() == 0)
             agentDescription = "";
-        //log.info("Adding new agent definition named: " + agentDefinitionName + " for user: " + user.id);
+
+        log.info("Adding new agent definition named: " + agentDefinitionName + " for user: " + user.id);
 
         // TODO: Parse comment
 
@@ -189,7 +175,8 @@ public class AgentDefinition {
             agentServer.agentDefinitions.add(user.id, agentMap);
         }
 
-        // Check if named agent definition already exists
+        log.info("Check if named agent definition already exists");
+
         if (agentMap.containsKey(agentDefinitionName))
             throw new AgentServerException("Agent definition name already exists: '" + agentDefinitionName + "'");
 
@@ -199,7 +186,8 @@ public class AgentDefinition {
 
         String invalidParameterNames = "";
 
-        // Parse 'parameter' fields
+        log.info("Parse 'parameter' fields");
+
         FieldList parameters = null;
         if (agentJson.has("parameters")) {
             JSONArray parameterJson = agentJson.optJSONArray("parameters");
