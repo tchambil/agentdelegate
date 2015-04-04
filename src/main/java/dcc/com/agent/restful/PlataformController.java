@@ -41,12 +41,14 @@ public class PlataformController {
     @RequestMapping(value = {"/status/start", "/status/start2"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public String Start() throws Exception {
-        logger.info("Starting agent server");
 
         AgentAppServer agentAppServer = new AgentAppServer();
         // Start the agent server.
         agentServer = new AgentServer(agentAppServer);
         agentServer.start();
+        logger.info("- - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - ");
+        logger.info("- - - - - - - - Starting agent Server successful - - - - - - ");
+        logger.info("- - - - - - - - - - - - - - - - - - - - - - - - - - -- - - - ");
 
         JSONObject message = new JSONObject();
         message.put("message", "Starting agent Server successful");

@@ -16,14 +16,12 @@
 
 package dcc.com.agent.activities;
 
-import org.apache.log4j.Logger;
-import org.json.JSONException;
-
-
 import dcc.com.agent.agentserver.AgentInstance;
 import dcc.com.agent.agentserver.AgentServerException;
 import dcc.com.agent.agentserver.RuntimeException;
 import dcc.com.agent.script.intermediate.SymbolException;
+import org.apache.log4j.Logger;
+import org.json.JSONException;
 
 public class AgentActivity {
     static final Logger log = Logger.getLogger(AgentActivity.class);
@@ -71,7 +69,9 @@ public class AgentActivity {
 
     public void startActivity() {
         status = StatusTypes.RUNNING;
-        log.info("Starting activity - " + description);
+        log.info("- - - - - - - - - - - - - --- - -");
+        log.info("- - - - New Starting activity - - - - " + description);
+        log.info("- - - - - - - - - - -- - - -  - -");
     }
 
     public void gotException(Exception e) {
@@ -85,8 +85,10 @@ public class AgentActivity {
     public void finishActivity() {
         endTime = System.currentTimeMillis();
         status = StatusTypes.COMPLETED;
-        log.info("Finished activity - " + description + " status: " + status
+
+        log.info("--->>>>Finished activity <<<<---" + description + " status: " + status
                 + " in " + (endTime - startTime) + " ms.");
+
         // TODO - Should state capture be done at this point?
     }
 

@@ -15,40 +15,13 @@
 
 package dcc.com.agent.agentserver;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
-import org.apache.log4j.Logger;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-
 import dcc.com.agent.activities.AgentActivityNotification;
 import dcc.com.agent.activities.AgentActivityTriggerInputChanged;
 import dcc.com.agent.field.Field;
 import dcc.com.agent.goals.Goal;
-import dcc.com.agent.notification.MailNotification;
-import dcc.com.agent.notification.NotificationDefinition;
-import dcc.com.agent.notification.NotificationHistory;
-import dcc.com.agent.notification.NotificationInstance;
-import dcc.com.agent.notification.NotificationRecord;
+import dcc.com.agent.notification.*;
 import dcc.com.agent.scheduler.AgentScheduler;
-import dcc.com.agent.script.intermediate.ExpressionNode;
-import dcc.com.agent.script.intermediate.MapTypeNode;
-import dcc.com.agent.script.intermediate.ObjectTypeNode;
-import dcc.com.agent.script.intermediate.ScriptNode;
-import dcc.com.agent.script.intermediate.Symbol;
-import dcc.com.agent.script.intermediate.SymbolException;
-import dcc.com.agent.script.intermediate.SymbolManager;
-import dcc.com.agent.script.intermediate.SymbolTable;
-import dcc.com.agent.script.intermediate.SymbolValues;
-import dcc.com.agent.script.intermediate.TypeNode;
+import dcc.com.agent.script.intermediate.*;
 import dcc.com.agent.script.parser.ParserException;
 import dcc.com.agent.script.parser.ScriptParser;
 import dcc.com.agent.script.parser.tokenizer.TokenizerException;
@@ -59,11 +32,14 @@ import dcc.com.agent.script.runtime.value.Value;
 import dcc.com.agent.script.runtine.ExceptionInfo;
 import dcc.com.agent.script.runtine.ParsedScripts;
 import dcc.com.agent.script.runtine.ScriptRuntime;
-import dcc.com.agent.util.DateUtils;
-import dcc.com.agent.util.JsonListMap;
-import dcc.com.agent.util.JsonUtils;
-import dcc.com.agent.util.ListMap;
-import dcc.com.agent.util.NameValue;
+import dcc.com.agent.util.*;
+import org.apache.log4j.Logger;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.util.*;
 
 public class AgentInstance {
     static final Logger log = Logger.getLogger(AgentInstance.class);
@@ -400,6 +376,8 @@ public class AgentInstance {
 */
 
         // Capture memory values
+        log.info("- - - - - - Capture memory values - - - - -- - - - ");
+
         SymbolValues memoryStates = new SymbolValues("memory");
         SymbolValues memoryValues = categorySymbolValues.get("memory");
         if (memoryValues != null)
@@ -499,7 +477,10 @@ public class AgentInstance {
         }
 
         // Set default value for each memory field
-        log.info("Initialize memory variables for " + name);
+
+        log.info("- - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - ");
+        log.info("- - - -Initialize memory variables for: " + name+ "- - - - - ");
+        log.info("- - - - - - - - - - - - - - - - - - - - - - - - - - -- - - - ");
         SymbolValues memoryValues = categorySymbolValues.get("memory");
         for (Field field : agentDefinition.memory) {
             if (field.compute != null) {
@@ -648,6 +629,7 @@ public class AgentInstance {
                 captureDataSourceOutputValues();
 
             // Run the compiled expression
+            //return valor time of compiled
             Value valueNode = scriptRuntime.evaluateExpression(expression, expressionNode);
 
             // Detect expression that exits the instance

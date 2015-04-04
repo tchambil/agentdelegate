@@ -16,16 +16,15 @@
 
 package dcc.com.agent.script.runtine;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
 import dcc.com.agent.agentserver.AgentInstance;
 import dcc.com.agent.agentserver.AgentServerException;
 import dcc.com.agent.script.intermediate.ExpressionNode;
 import dcc.com.agent.script.intermediate.ScriptNode;
 import dcc.com.agent.script.runtime.value.NullValue;
 import dcc.com.agent.script.runtime.value.Value;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ScriptRuntime {
     public AgentInstance agentInstance;
@@ -41,6 +40,7 @@ public class ScriptRuntime {
         // Evaluate the expression
         Value returnValueNode = null;
         try {
+            //Return time of execution second, ms, hours, month etc.. . .
             returnValueNode = expressionNode == null ? NullValue.one : expressionNode.evaluateExpression(scriptState);
         } catch (Exception e) {
             e.printStackTrace();

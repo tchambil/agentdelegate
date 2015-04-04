@@ -621,7 +621,7 @@ public class AgentServer {
             agentMap = new AgentInstanceList();
             agentInstances.add(user.id, agentMap);
         }
-        log.info("Finish Print AgentMap:- - - - - " +agentMap);
+
 
         // Check if referenced agent definition exists
         //
