@@ -1,0 +1,70 @@
+<html>
+<head>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+</head>
+
+<body style="text-align:center">
+<div align="center">
+    <h2>New User Form</h2>
+
+    <form method="PUT" action="../users/test-user-1">
+        <table>
+            <tr>
+                <td>Display name:</td>
+                <td><input name="display_name" value="Your Name"/></td>
+            </tr>
+
+            <tr>
+                <td>Full Name :</td>
+                <td><input name="full_name" value="Your Full Name"/></td>
+            </tr>
+
+            <tr>
+                <td>Email :</td>
+                <td><input name="email" value="you@example.com"/></td>
+            </tr>
+
+            <tr>
+                <td>Nickname :</td>
+                <td><input name="nickname" value="Youri"/></td>
+            </tr>
+
+            <tr>
+                <td>Company :</td>
+                <td><input name="company" value="Your company"/></td>
+            </tr>
+
+            <tr>
+                <td>Bio :</td>
+                <td><input name="bio" value="Your bio"/></td>
+            </tr>
+            <tr>
+                <td><input type="submit"/></td>
+            </tr>
+        </table>
+    </form>
+
+    <script type="text/javascript">
+
+        $('form').submit(function () {
+
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'PUT',
+                data: JSON.stringify($(this).serializeArray()),
+                contentType: 'application/json',
+                success: function (data) {
+                    alert('User created!! :-)')
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('An error has occured!! :-(')
+                }
+            })
+
+            return false
+        })
+
+    </script>
+</div>
+</body>
+</html>

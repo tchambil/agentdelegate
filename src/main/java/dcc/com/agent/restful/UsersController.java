@@ -2,14 +2,13 @@ package dcc.com.agent.restful;
 
 import dcc.com.agent.agentserver.AgentServer;
 import dcc.com.agent.agentserver.User;
-import dcc.com.agent.appserver.AgentAppServerBadRequestException;
 import dcc.com.agent.util.Utils;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
+import dcc.com.agent.appserver.AgentAppServerBadRequestException;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
@@ -19,11 +18,13 @@ public class UsersController {
     public AgentServer agentServer;
     public Utils util = new Utils();
 
-    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    @RequestMapping(value = "/users", method = RequestMethod.POST,  produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public boolean postUser(HttpServletRequest request) throws Exception {
+      public boolean postUser(HttpServletRequest request) throws Exception {
         // User can specify parameters in JSON or as query parameters
         // Query overrides JSON if query parameter is non-null
+        System.out.println(request.getParameter("id"));
+
         PlataformController plataform = new PlataformController();
         agentServer = plataform.getAgentServer();
         JSONObject userJson = util.getJsonRequest(request);
@@ -132,6 +133,7 @@ public class UsersController {
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     public User getUser(@PathVariable String id) throws Exception {
         logger.info("Getting detailed info for a specified user Id:" + id);
         PlataformController plataform = new PlataformController();
@@ -140,7 +142,7 @@ public class UsersController {
         return users;
     }
 
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, headers = "Content-Type=application/json")
     @ResponseStatus(HttpStatus.OK)
     public User putUser(@PathVariable String id, HttpServletRequest request) throws Exception {
         // Parse the user info JSON from posted entity

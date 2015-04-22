@@ -1,18 +1,42 @@
-<!DOCTYPE html>
 <html>
 <head>
-    <title>Static</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css"
-          href="webjars/bootstrap/3.0.3/css/bootstrap.min.css" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 </head>
-<body>
 
+<body style="text-align:center">
+<div align="center">
+    <h2>Start Agent Server</h2>
 
-<div class="jumbotron">
-    <h1>Home</h1>
-    <p>Some static content</p>
+    <form method="GET" action="../status/start">
+        <table>
 
+            <tr>
+                <td><input type="submit"/></td>
+            </tr>
+        </table>
+    </form>
+
+    <script type="text/javascript">
+
+        $('form').submit(function () {
+
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'GET',
+                data: JSON.stringify($(this).serializeArray()),
+                contentType: 'application/json',
+                success: function (data) {
+                    alert('Starting agent Server successful!! :-)')
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('An error has occured!! :-(')
+                }
+            })
+
+            return false
+        })
+
+    </script>
 </div>
-
+</body>
 </html>

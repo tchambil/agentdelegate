@@ -16,13 +16,12 @@
 
 package dcc.com.agent.script.intermediate;
 
-import java.util.List;
-
-
 import dcc.com.agent.agentserver.AgentServerException;
 import dcc.com.agent.script.runtime.value.Value;
 import dcc.com.agent.script.runtine.ScriptState;
 import dcc.com.agent.util.ListMap;
+
+import java.util.List;
 
 public class ScriptNode extends Node {
     public BlockStatementNode blockNode;
@@ -60,7 +59,6 @@ public class ScriptNode extends Node {
             // No match because number of parameters and arguments do not match
             return false;
     }
-
     public void run(ScriptState scriptState, List<Value> argumentValues) throws AgentServerException {
         // Initialize parameter values from arguments
         int numParameters = parameters == null ? 0 : parameters.size();

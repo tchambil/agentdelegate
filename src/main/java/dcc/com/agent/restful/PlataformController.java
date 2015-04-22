@@ -233,7 +233,7 @@ public class PlataformController {
     @ResponseStatus(HttpStatus.OK)
     public String getUsers() throws Exception {
 
-        JSONArray usersArrayJson = new JSONArray();
+       JSONArray usersArrayJson = new JSONArray();
         for (NameValue<User> userIdValue : agentServer.users) {
             User user = userIdValue.value;
             JSONObject userJson = new JSONObject();
@@ -244,7 +244,8 @@ public class PlataformController {
         }
         JSONObject usersJson = new JSONObject();
         usersJson.put("users", usersArrayJson);
-        return usersJson.toString(4);
+
+        return  usersJson.toString();
 
     }
 
