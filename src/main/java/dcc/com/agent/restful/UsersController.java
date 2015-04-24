@@ -20,10 +20,10 @@ public class UsersController {
 
     @RequestMapping(value = "/users", method = RequestMethod.POST,  produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-      public boolean postUser(HttpServletRequest request) throws Exception {
+      public String postUser(HttpServletRequest request) throws Exception {
         // User can specify parameters in JSON or as query parameters
         // Query overrides JSON if query parameter is non-null
-        System.out.println(request.getParameter("id"));
+
 
         PlataformController plataform = new PlataformController();
         agentServer = plataform.getAgentServer();
@@ -127,7 +127,9 @@ public class UsersController {
             newUser.generateSha();
             agentServer.addUser(newUser);
             // TODO: Set Location header with URL
-            return true;
+            JSONObject message = new JSONObject();
+            message.put("message", "Update successful");
+            return newUser.toString();
         }
     }
 

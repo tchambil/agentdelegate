@@ -1,42 +1,112 @@
+<!DOCTYPE HTML>
 <html>
 <head>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-</head>
+    <title>Agent Server</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="../js/agent.js"> </script>
+    <script src="../js/agentdefinition.js"></script>
+    <script src="../js/plataform.js"></script>
+    <script src="../js/user.js"></script>
 
-<body style="text-align:center">
-<div align="center">
+
+    <style>
+        body { background-color: #eee; font: helvetica; }
+        #container { width: 500px; background-color: #fff; margin: 30px auto; padding: 30px; border-radius: 5px; box-shadow: 5px; }
+        .green { font-weight: bold; color: green; }
+        .message { margin-bottom: 10px; }
+        label { width:70px; display:inline-block;}
+        .hide { display: none; }
+        .error { color: red; font-size: 0.8em; }
+    </style>
+</head>
+<body>
+
+<div id="container">
+
+    <h1>Agent Server</h1>
+    <p>This page demonstrates the execute of Agent Server. To configure the functionality correct.
+
+    </p>
+
     <h2>Start Agent Server</h2>
 
-    <form method="GET" action="../status/start">
-        <table>
 
-            <tr>
-                <td><input type="submit"/></td>
-            </tr>
-        </table>
-    </form>
+    <div id="dvshutdown">
 
-    <script type="text/javascript">
+        <textarea id="personResponse" class="green"  style="height:200px; width:350px; overflow:scroll;">   </textarea><br>
+        <button id="getstart">Start</button>
+        <button id="putpause">Pause</button>
+        <button id="putrestart">Restart</button>
+        <button id="putstop">stop</button>
+       <button id="btnstatus">status</button>
+        <button id="btnconfig">config</button>
+        <button id="putabout">about</button>
+    </div>
 
-        $('form').submit(function () {
+    <hr/>
 
-            $.ajax({
-                url: $(this).attr('action'),
-                type: 'GET',
-                data: JSON.stringify($(this).serializeArray()),
-                contentType: 'application/json',
-                success: function (data) {
-                    alert('Starting agent Server successful!! :-)')
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert('An error has occured!! :-(')
-                }
-            })
+    <h2>Users</h2>
+     <div id="newUser">
+        <label for="idInput">Id: </label>
+        <input type="text" name="id" id="idInput" value="test-user-1"/><br/>
 
-            return false
-        })
+        <label for="passwordInput">Password: </label>
+        <input type="text" name="password" id="passwordInput" value="test-pwd-1" /> <br/>
 
-    </script>
+        <label for="display_nameInput">display_name: </label>
+        <input type="text" name="display_name" id="display_nameInput" value="Your Name" /> <br/>
+
+        <label for="full_nameInput">full_name: </label>
+        <input type="text" name="full_name" id="full_nameInput" value="Your Full Name" /> <br/>
+
+        <label for="emailInput">email: </label>
+        <input type="text" name="email" id="emailInput" value="you@example.com" /> <br/>
+
+        <label for="nicknameInput">nickname: </label>
+        <input type="text" name="nickname" id="nicknameInput" value="Youri" /> <br/>
+
+        <label for="companyInput">company: </label>
+        <input type="text" name="company" id="companyInput" value="Your company" /> <br/>
+
+        <label for="interestsInput">interests: </label>
+        <input type="text" name="interests" id="interestsInput" value="Your interests" /> <br/>
+        <br/>
+
+
+        <div id="divputuser" class="green"> </div>
+        <button id="btnnewUser"> Register User</button>
+        <button id="btnputUser">Update User</button>
+    </div>
+    <hr/>
+    <h2>List User</h2>
+    <div id="getUser">
+
+        <textarea id="outUser" class="green"  style="height:200px; width:350px; overflow:scroll;">   </textarea><br>
+        <button id="btnGetUser">Get User</button>     <button id="btnGetUserall">List All User</button>
+    </div>
+    <hr/>
+    <h2>Agent Definition</h2>
+    <hr/>
+    <div id="postAdefinition">
+        <div id="adefinition"></div>
+
+        <textarea id="txtadefinition"  class="green"  style="height:200px; width:350px; overflow:scroll;">
+            {
+            "name": "HelloWorld",
+            "outputs": [
+            {
+            "name": "output1",
+            "type": "string",
+            "default_value": "Hello World"
+            },
+            ]
+            }</textarea>
+        <button id="btndefinition">Add Definition</button>
+        <button id="btngetdefinition">Get Definition</button>
+    </div>
+    <hr/>
+
+
 </div>
 </body>
 </html>

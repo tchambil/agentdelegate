@@ -41,7 +41,9 @@ public class AgentdefinitionsController {
         AgentDefinition agentDefinition = agentServer.addAgentDefinition(
                 user, agentDefinitionJson);
         // Done
-        return agentDefinition.toString();
+        JSONObject message = new JSONObject();
+        message.put("message", "Add was successful");
+        return message.toString();
     }
 
     @RequestMapping(value = "/users/{id}/agent_definitions/{name}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -75,7 +77,9 @@ public class AgentdefinitionsController {
         agent.update(agentServer, newAgentDefinition);
 
         // Update was successful
-        return "Update was successful";
+        JSONObject message = new JSONObject();
+        message.put("message", "Update was successful");
+        return message.toString();
 
     }
 

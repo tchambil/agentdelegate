@@ -50,7 +50,10 @@ public class AgentController {
         AgentInstance agentInstance = agentServer.addAgentInstance(user,
                 agentInstanceJson);
         // Done
-        return "Update was successful";
+        JSONObject message = new JSONObject();
+        message.put("message", "Add was successful");
+        return message.toString();
+
     }
 
     @RequestMapping(value = "/users/{id}/agents/{name}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -90,7 +93,10 @@ public class AgentController {
         agent.update(agentServer, newAgentInstance);
 
         // Update was successful
-        return "Update was successful";
+        JSONObject message = new JSONObject();
+        message.put("message", "Update was successful");
+        return message.toString();
+
 
     }
 

@@ -3,6 +3,12 @@
 <head>
     <title>Agent Server</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="../js/agent.js"> </script>
+    <script src="../js/agentdefinition.js"></script>
+    <script src="../js/plataform.js"></script>
+    <script src="../js/user.js"></script>
+
+
     <style>
         body { background-color: #eee; font: helvetica; }
         #container { width: 500px; background-color: #fff; margin: 30px auto; padding: 30px; border-radius: 5px; box-shadow: 5px; }
@@ -57,180 +63,30 @@
         <input type="submit" value="Register User" /><br/>
 
     </form>
-    <form id="putUser">
-          <input type="submit" value="Update User" /><br/>
-        <br/>
-        <div id="putFormResponse" class="green"> </div>
-    </form>
+    <div id="putUser">
+          <div id="divputuser" class="green"> </div>
+        <button id="btnputUser">Update User</button>
+    </div>
     <hr/>
     <h2>List User</h2>
     <div id="getUser">
         <div id="out"></div>
         <button id="btnGetUser">List User</button>
     </div>
+    <hr/>
     <h2>Status Plataform Agent Server</h2>
     <div id="getstatus">
         <div id="status"></div>
         <button id="btnstatus">List User</button>
     </div>
+    <hr/>
     <h2>Config Plataform Agent Server</h2>
     <div id="getConfig">
         <div id="config"></div>
         <button id="btnconfig">List User</button>
     </div>
     <hr/>
+
 </div>
-
-
-<script type="text/javascript">
-
-    $(document).ready(function() {
-        // Random Person AJAX Request
-        $('#start').click(function(e) {
-            $.get('../status/start');
-        });
-
-        $("#btnGetUser").click(function(e) {
-            $.get('../users/test-user-1', function(user) {
-             $('#out').append("Id: " + user.id +" <br/>" +
-                             "display_name:" + user.displayName+" <br/>" +
-                             "full_name:"+ user.fullName +"<br/>" +
-                             "email:" + user.email + " <br/>" +
-                             "nick_name:" + user.nickName +" <br/>" +
-                             "organization:" + user.organization +" <br/>" +
-                              "interests:"+ user.interests +" <br/>");
-              });
-        });
-
-        $("#btnstatus").click(function(e) {
-            $.get('../status', function(server) {
-                $('#status').append("status: " + server.status +" <br/>" +
-                        "since:" + server.since+" <br/>" +
-                        "num_registered_users:"+ server.num_registered_users +"<br/>" +
-                        "num_active_users:" + server.num_active_users + " <br/>" +
-                        "num_registered_agents:" + server.num_registered_agents +" <br/>" +
-                        "num_active_agents:" + server.num_active_agents +" <br/>");
-            });
-        });
-
-        $("#btnconfig").click(function(e) {
-            $.get('../config', function(config) {
-                $('#config').append(
-                        "name: "  + config.name +" <br/>" +
-                "description: " + config.description +" <br/>" +
-                "software: " + config.software +" <br/>" +
-                "version: " + config.version +" <br/>" +
-                "website: " + config.website +" <br/>" +
-                "admin_approve_user_create: " + config.admin_approve_user_create +" <br/>" +
-                "mail_confirm_user_create: " + config.mail_confirm_user_create +" <br/>" +
-                "contact: " + config.contact +" <br/>" +
-                "user_agent_name: " + config.user_agent_name +" <br/>" +
-                "default_web_page_refresh_interval: " + config.default_web_page_refresh_interval +" <br/>" +
-                "minimum_web_page_refresh_interval: " + config.minimum_web_page_refresh_interval +" <br/>" +
-                "minimum_web_site_access_interval: " + config.minimum_web_site_access_interval +" <br/>" +
-                "minimum_web_access_interval: " + config.minimum_web_access_interval +" <br/>" +
-                "execution_limit_level_1: " + config.execution_limit_level_1 +" <br/>" +
-                "execution_limit_level_2: " + config.execution_limit_level_2 +" <br/>" +
-                "execution_limit_level_3: " + config.execution_limit_level_3 +" <br/>" +
-                "execution_limit_level_4: " + config.execution_limit_level_4 +" <br/>" +
-                "execution_limit_default_level: "+ config.execution_limit_default_level +" <br/>" +
-                "max_users: " + config.max_users +" <br/>" +
-                "max_instances: " + config.max_instances +" <br/>" +
-                "implicitly_deny_web_access: " + config.implicitly_deny_web_access +" <br/>" +
-                "implicitly_deny_web_write_access: "+ config.implicitly_deny_web_write_access +" <br/>" +
-                "default_trigger_interval: " + config.default_trigger_interval +" <br/>" +
-                "default_reporting_interval: " + config.default_reporting_interval +" <br/>" +
-                "minimum_trigger_interval: " + config.minimum_trigger_interval +" <br/>" +
-                "minimum_reporting_interval: " + config.minimum_reporting_interval +" <br/>" +
-                "default_limit_instance_states_stored: " + config.default_limit_instance_states_stored +" <br/>" +
-                "maximum_limit_instance_states_stored: " + config.maximum_limit_instance_states_stored +" <br/>" +
-                "default_limit_instance_states_returned: " + config.default_limit_instance_states_returned +" <br/>" +
-                "maximum_limit_instance_states_returned: " + config.maximum_limit_instance_states_returned +" <br/>" +
-                "mail_access_enabled: " + config.mail_access_enabled +" <br/>" +
-                "minimum_mail_access_interval: " + config.minimum_mail_access_interval +" <br/>" +
-                "minimum_host_mail_access_interval: " + config.minimum_host_mail_access_interval +" <br/>" +
-                "minimum_address_mail_access_interval: " + config.minimum_address_mail_access_interval +" <br/>"
-                );
-            });
-        });
-
-        $("#putUser").submit(function(e) {
-            $.ajax({
-                type: "PUT",
-                url: '../users/'+ $('#idInput').val().toString()+'',
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify({
-                            display_name: $('#display_nameInput').val().toString() ,
-                            full_name: $('#full_nameInput').val().toString() ,
-                            email: $('#emailInput').val().toString(),
-                            nick_name: $('#nicknameInput').val().toString() ,
-                            organization:  $('#companyInput').val().toString() ,
-                            interests: $('#interestsInput').val().toString()
-
-                }),
-                dataType: "json",
-                success: function (data, status, jqXHR) {
-                    alert("success..." + data + status + jqXHR);
-                },
-
-                error: function (jqXHR, status) {
-                    alert(jqXHR.responseText + status);
-
-                }
-            });
-        });
-
-
-        $('#idForm').submit(function(e) {
-            var personId = +$('#personId').val();
-            if(!validatePersonId(personId))
-                return false;
-            $.get('${pageContext.request.contextPath}/api/person/' + personId, function(person) {
-                $('#personIdResponse').text(person.name + ', age ' + person.age);
-            });
-            e.preventDefault(); // prevent actual form submit
-        });
-        // Save Person AJAX Form Submit
-       // $('#newUser').submit(function(e) {
-            // will pass the form data using the jQuery serialize function
-         //   $.post('../users', $(this).serialize(), function(response) {
-         //       $('#personFormResponse').text(response);
-        //    });
-
-            $('#newUser').submit(function(e) {
-                // will pass the form data using the jQuery serialize function
-
-                $.post('../users?id=' + $('#idInput').val().toString() +
-                        '&password=' + $('#passwordInput').val().toString() +
-                        '&display_name=' + $('#display_nameInput').val().toString() +
-                        '&full_name=' + $('#full_nameInput').val().toString() +
-                        '&email=' + $('#emailInput').val().toString()+
-                        '&nickname=' + $('#nicknameInput').val().toString() +
-                        '&company=' + $('#companyInput').val().toString() +
-                        '&interests=' + $('#interestsInput').val().toString(), function(response) {
-                    $('#personFormResponse').text(response);
-                });
-
-            e.preventDefault(); // prevent actual form submit and page reload
-        });
-
-
-    });
-
-    function validatePersonId(personId) {
-        console.log(personId);
-        if(personId === undefined || personId < 0 || personId > 3) {
-            $('#idError').show();
-            return false;
-        }
-        else {
-            $('#idError').hide();
-            return true;
-        }
-    }
-
-
-</script>
-
 </body>
 </html>
