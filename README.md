@@ -16,3 +16,16 @@ For start agent:
 
 http://localhost:8080/index.html 
 
+# For Install RabbitMQ in Ubuntu
+
+sudo apt-get remove rabbitmq-server
+sudo apt-get install python-software-properties
+sudo add-apt-repository "deb http://www.rabbitmq.com/debian/ testing main"
+wget http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+sudo apt-key add rabbitmq-signing-key-public.asc
+sudo apt-get update
+sudo apt-get install rabbitmq-server -y
+sudo service rabbitmq-server start
+sudo rabbitmq-plugins enable rabbitmq_management
+sudo service rabbitmq-server restart
+
