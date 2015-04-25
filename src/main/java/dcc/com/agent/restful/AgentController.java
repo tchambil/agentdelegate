@@ -1,6 +1,11 @@
 package dcc.com.agent.restful;
 
-import dcc.com.agent.agentserver.*;
+import dcc.com.agent.agentserver.AgentInstance;
+import dcc.com.agent.agentserver.OutputRecord;
+import dcc.com.agent.agentserver.ScriptDefinition;
+import dcc.com.agent.agentserver.AgentInstanceList;
+import dcc.com.agent.agentserver.AgentServer;
+import dcc.com.agent.agentserver.User;
 import dcc.com.agent.appserver.AgentAppServerBadRequestException;
 import dcc.com.agent.appserver.AgentAppServerException;
 import dcc.com.agent.notification.NotificationInstance;

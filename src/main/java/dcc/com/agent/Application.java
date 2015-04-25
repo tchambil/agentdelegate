@@ -14,9 +14,10 @@ import org.springframework.context.annotation.Scope;
 @EnableAutoConfiguration
 @SpringBootApplication
 @Scope("singleton")
-public class Application extends SpringBootServletInitializer {
+public class Application extends SpringBootServletInitializer
+{
 
-    @Override
+   @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(Application.class);
     }
