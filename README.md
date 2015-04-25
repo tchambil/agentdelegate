@@ -15,6 +15,8 @@ execute from terminal: java -jar agent-rest-1.0.jar
 For start agent:
 
 http://localhost:8080/index.html 
+# Requirements
++ - RabbitMQ server (installation instructions below). RabbitMQ is an AMQP server. The server is freely available at http://www.rabbitmq.com/download.html. You can download it manually.
 
 # For Install RabbitMQ in Ubuntu
 ```shell
