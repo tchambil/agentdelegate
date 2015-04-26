@@ -15,7 +15,9 @@ public class Worker {
     public static void main(String[] argv) throws Exception {
 
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
+        factory.setUsername("agent");
+        factory.setPassword("159753");
+        factory.setHost("192.168.50.19");
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
 

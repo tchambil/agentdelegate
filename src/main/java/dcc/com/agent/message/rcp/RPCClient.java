@@ -1,4 +1,4 @@
-package dcc.com.agent.message;
+package dcc.com.agent.message.rcp;
 
 /**
  * Created by teo on 26/04/15.
