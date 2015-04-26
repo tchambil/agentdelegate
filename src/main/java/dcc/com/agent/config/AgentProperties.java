@@ -8,9 +8,9 @@ import dcc.com.agent.script.runtine.ScriptState;
 
 public class AgentProperties {
     public static final int appServerPort = AgentVariable.DEFAULT_APP_SERVER_PORT;
-    public static final String agentServerName = "YourAgentServer1";
-    public static final String agentServerDescription = "Your Agent Server";
-    public static final String adminPassword = "your-admin-password";
+    public static final String agentServerName = "PlataformAgentServer";
+    public static final String agentServerDescription = "Agent Server";
+    public static final String adminPassword = "159753";
     public static final String mailServerHostName = "";
     public static final String mailServerUserName = "";
     public static final String mailServerUserPassword = "";
@@ -19,8 +19,8 @@ public class AgentProperties {
     public static final String mailServerFromName = "";
     public static final String testUserEmail = "";
     public static final String testUserName = "";
-    public static final String supportContactEmail = "jack@basetechnology.com";
-    public static final String website = "http://your-website.com";
+    public static final String supportContactEmail = "tchambil@dcc.uchile.cl";
+    public static final String website = "http://dcc.uchile.com";
     public static final String adminApproveUserCreate = Boolean
             .toString(User.DEFAULT_ADMIN_ONLY_USER_CREATE);
     ;
