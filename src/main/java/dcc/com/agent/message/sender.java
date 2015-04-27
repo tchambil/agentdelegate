@@ -21,7 +21,7 @@ public class sender {
 
         channel.queueDeclare(QUEUE_NAME, false, false, false, null);
         String message = "";
-        for (int i = 0; i < 500000; i++) {
+        for (int i = 0; i < 10000; i++) {
 
             message="message "+"["+i+"]";
             channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
