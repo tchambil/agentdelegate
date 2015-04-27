@@ -12,12 +12,12 @@ $(document).ready(function() {
             dataType: "json",
             data: $('#txtadefinition').val(),
             success: function(data){
-                $('#txtgetadefinition').empty();
-                $('#txtgetadefinition').append(JSON.stringify(data,null,"\t"));
+                $('#txtadefinition').empty();
+                $('#txtadefinition').append(JSON.stringify(data,null,"\t"));
             },
             error: function(err){
-                $('#txtgetadefinition').empty();
-                $('#txtgetadefinition').append(JSON.stringify(err,null,2));
+                $('#txtadefinition').empty();
+                $('#txtadefinition').append(JSON.stringify(err,null,2));
             }
         }); //-- END of Ajax
 
@@ -27,8 +27,8 @@ $(document).ready(function() {
     $('#btngetdefinition').click(function(){
        $.get('../users/test-user-1/agent_definitions',function(data)
         {
-            $('#txtgetadefinition').empty();
-            $('#txtgetadefinition').append(JSON.stringify(data,null,"\t"));
+            $('#txtadefinition').empty();
+            $('#txtadefinition').append(JSON.stringify(data,null,"\t"));
 
         }); //-- END of Ajax
 

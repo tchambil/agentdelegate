@@ -86,23 +86,58 @@
     </div>
     <hr/>
     <h2>Agent Definition</h2>
-    <hr/>
+
     <div id="postAdefinition">
         <div id="adefinition"></div>
 
         <textarea id="txtadefinition"  class="green"  style="height:200px; width:350px; overflow:scroll;">
             {
-            "name": "HelloWorld",
+            "name": "Counter",
+            "memory": [
+            {
+            "name": "counter",
+            "type": "int"
+            }
+            ],
+            "timers": [
+            {
+            "name": "count",
+            "interval": "seconds(5)",
+            "script": "counter++;"
+            }
+            ],
             "outputs": [
             {
             "name": "output1",
             "type": "string",
-            "default_value": "Hello World"
+            "compute": "\"Count is \" + counter"
             },
             ]
-            }</textarea>
+            }</textarea><br>
         <button id="btndefinition">Add Definition</button>
         <button id="btngetdefinition">Get Definition</button>
+    </div>
+    <hr/>
+    <h2>Agent</h2>
+
+    <div id="postAgent">
+        <div id="agent"></div>
+
+        <textarea id="txtagent"  class="green"  style="height:200px; width:350px; overflow:scroll;">
+            {
+            "name": "Agent-1",
+            "definition": "Counter"
+            }
+        </textarea><br>
+        <button id="btnagent">Add Agent</button>
+        <button id="btngetagentall">Get All</button>
+        <button id="btngetagentid">Get id </button>
+        <button id="btnagentpause">pause</button>
+        <button id="btnagentresume">resume</button>
+        <button id="btnagentdisable">disable</button>
+        <button id="btnagentenable">enable</button>
+        <button id="btnagentoutput">output</button>
+        <button id="btnagentstatus">status</button>
     </div>
     <hr/>
 
