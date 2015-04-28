@@ -1,12 +1,10 @@
 # Introduction to agent at web servers: 
 ---
-== AgentDelegate
+*AgentDelegate*
 ---
-It's a idea of https://github.com/jack-krupansky-BT/Agent-Server-Stage-0.
+The proyect is contribute and improve ["Agent-Server-Stage-0"](http://basetechnology.blogspot.com/2012_03_01_archive.html), with framework "spring boot" (http://projects.spring.io/spring-boot/) and run directly from RESTFUL. 
 
-the idea is contribute and improve "Agent-Server-Stage-0", with framework "spring boot" (http://projects.spring.io/spring-boot/)  and run directly from RESTFUL. 
-
-our work is implement the comunication between web servers with message queue of high concurrency. For the  delegation of tasks between web servers.
+Our work is implement the comunication between web servers with message queue of high concurrency. For the  delegation of tasks between web servers.
 
 Actually we are working in the implement of RabbitMQ broker. we are writing the manual for functionality.
 
