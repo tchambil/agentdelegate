@@ -20,9 +20,9 @@ public class Producer {
                 new GenericXmlApplicationContext("classpath:/rabbitmq.xml");
         AmqpTemplate template = context.getBean(AmqpTemplate.class);
 
-       template.convertAndSend("myqueue", "foo01");
+       template.convertAndSend("hello", "foo01");
 
-         String foo = (String) template.receiveAndConvert("myqueue");
+         String foo = (String) template.receiveAndConvert("hello");
         System.out.println(foo);
     }
 

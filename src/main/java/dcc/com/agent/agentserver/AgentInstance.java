@@ -19,6 +19,7 @@ import dcc.com.agent.activities.AgentActivityNotification;
 import dcc.com.agent.activities.AgentActivityTriggerInputChanged;
 import dcc.com.agent.field.Field;
 import dcc.com.agent.goals.Goal;
+import dcc.com.agent.message.MessageSender;
 import dcc.com.agent.notification.*;
 import dcc.com.agent.scheduler.AgentScheduler;
 import dcc.com.agent.script.intermediate.*;
@@ -555,6 +556,13 @@ public class AgentInstance {
             if (field.compute != null) {
                 Value newValue = evaluateExpression(field.compute);
                 outputValues.put(symbolManager.get("outputs", field.symbol.name), newValue);
+
+                MessageSender messageSender = new MessageSender ();
+                try {
+                  messageSender.sender("Computed new output value for " + field.symbol.name + ": " + newValue.toJson());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 log.info("Computed new output value for " + field.symbol.name + ": " + newValue.toJson());
             }
         }

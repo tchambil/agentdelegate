@@ -31,7 +31,9 @@ public class Receive {
             QueueingConsumer.Delivery delivery=consumer.nextDelivery();
             String message =new String(delivery.getBody());
             System.out.println("[x] Received '"+ message+"'");
-
+            //Retrasmitiendo
+            ReSender reSender =new ReSender();
+            reSender.sender(message);
         }
 
 
