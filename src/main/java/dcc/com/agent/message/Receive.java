@@ -4,27 +4,27 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.QueueingConsumer;
+import dcc.com.agent.config.AgentProperties;
+
 
 /**
  * Created by teo on 25/04/15.
  */
 public class Receive {
-    private final static String Queque_name="hello";
+    public static AgentProperties Properties;
     public static void main(String[] args) throws Exception
     {
         ConnectionFactory factory=new ConnectionFactory();
-        factory.setUsername("agent");
-        factory.setPassword("159753");
-        // factory.setPort(15672);
-        //factory.setVirtualHost("teo");
-        factory.setHost("192.168.50.19");
+        factory.setUsername(Properties.Rabbitmq_Username);
+        factory.setPassword(Properties.Rabbitmq_Password);
+        factory.setHost(Properties.Rabbitmq_Host);
         Connection connection=factory.newConnection();
         Channel channel=connection.createChannel();
 
-        channel.queueDeclare(Queque_name,false,false,false,null);
+        channel.queueDeclare(Properties.Rabbitmq_QueueName,false,false,false,null);
         System.out.println("[*] Waiting for messages. To exit press CTRL +C");
         QueueingConsumer consumer=new QueueingConsumer(channel);
-        channel.basicConsume(Queque_name,true,consumer);
+        channel.basicConsume(Properties.Rabbitmq_QueueName,true,consumer);
         while(true)
         {
             //   Thread.sleep(500);

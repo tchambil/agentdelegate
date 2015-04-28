@@ -17,6 +17,7 @@
     </parent>
     <dependencies>
 
+
         <dependency>
             <groupId>org.erlang.otp</groupId>
             <artifactId>jinterface</artifactId>
