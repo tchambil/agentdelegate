@@ -9,7 +9,7 @@ import dcc.com.agent.script.runtine.ScriptState;
 public class AgentProperties {
 
     public static final String Rabbitmq_Username="agent";
-    public static final String  Rabbitmq_Host="192.168.50.19";
+    public static final String  Rabbitmq_Host="10.0.115.186";
     public static final String Rabbitmq_Password="159753";
     public static final String Rabbitmq_QueueName="queue";
 
