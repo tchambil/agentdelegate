@@ -6,7 +6,7 @@ The proyect is contribute and improve ["Agent-Server-Stage-0"](http://basetechno
 
 Our work is implement the comunication between web servers with message queue of high concurrency. For the  delegation of tasks between web servers.
 
-Actually we are working in the implement of RabbitMQ broker. we are writing the manual for functionality.
+Actually we are working in the implement of RabbitMQ broker.
 
 For install:
 execute from terminal: java -jar agent-rest-1.0.jar
