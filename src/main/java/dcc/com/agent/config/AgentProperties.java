@@ -9,7 +9,7 @@ import dcc.com.agent.script.runtine.ScriptState;
 public class AgentProperties {
 
     public static final String Rabbitmq_Username="agent";
-    public static final String  Rabbitmq_Host="10.0.115.186";
+    public static final String  Rabbitmq_Host="192.168.50.25";
     public static final String Rabbitmq_Password="159753";
     public static final String Rabbitmq_QueueName="queue";
 
@@ -27,11 +27,9 @@ public class AgentProperties {
     public static final String testUserName = "";
     public static final String supportContactEmail = "tchambil@dcc.uchile.cl";
     public static final String website = "http://dcc.uchile.com";
-    public static final String adminApproveUserCreate = Boolean
-            .toString(User.DEFAULT_ADMIN_ONLY_USER_CREATE);
+    public static final String adminApproveUserCreate = Boolean.toString(User.DEFAULT_ADMIN_ONLY_USER_CREATE);
     ;
-    public static final String mailConfirmUserCreate = Boolean
-            .toString(User.DEFAULT_ADMIN_ONLY_USER_CREATE);
+    public static final String mailConfirmUserCreate = Boolean.toString(User.DEFAULT_ADMIN_ONLY_USER_CREATE);
     ;
     public static final String persistent_store_dir = "./persistent_store";
     public static final String userAgentName = AgentVariable.DEFAULT_USER_AGENT_NAME;
