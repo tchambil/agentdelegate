@@ -101,7 +101,7 @@
             <li class="dropdown hidden-xs">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <span class="glyphicon glyphicon-user padding-right-small"
-                          style="position:relative;top: 3px;"></span> Jack Smith
+                          style="position:relative;top: 3px;"></span> Teo Chambil
                     <i class="fa fa-caret-down"></i>
                 </a>
 
@@ -173,7 +173,7 @@
                                                                         class="nav-header collapsed"
                                                                         data-toggle="collapse">
             <i class="fa fa-fw fa-arrows-alt"></i> Groups<i class="fa fa-collapse"></i><span
-                class="label label-info">+3</span></a>
+                class="label label-info">+0</span></a>
         </li>
         <li>
             <ul class="group-menu nav nav-list collapse">
@@ -216,15 +216,71 @@
     </div>
 
     <div class="main-content">
+
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#home" data-toggle="tab">Profile</a></li>
-            <li><a href="#profile" data-toggle="tab">Password</a></li>
+            <li class="active">
+                <a href="#manage" data-toggle="tab">Manage</a>
+            </li>
+            <li>
+                <a href="#status" data-toggle="tab">Status</a>
+            </li>
+            <li>
+                <a href="#config" data-toggle="tab">Config</a>
+            </li>
+            <li>
+                <a href="#about" data-toggle="tab">About</a>
+            </li>
         </ul>
 
+        <div class="row">
+
+            <div class="col-md-4">
+                <br>
+
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane active in" id="manage">
+                        <div class="btn-toolbar list-toolbar">
+                            <button class="btn btn-primary"><i class="fa fa-play"></i> Start</button>
+                            <button class="btn btn-primary"><i class="fa fa-pause"></i> Pause</button>
+                            <button class="btn btn-primary"><i class="fa fa-refresh"></i> Restart</button>
+                            <a href="#myModal" data-toggle="modal" class="btn btn-danger"><i class="fa fa-stop"></i> Stop</a>
+                        </div>
+
+                        </div>
+                    <div class="tab-pane fade" id="status">
+                        Hello Status
+                    </div>
+                    <div class="tab-pane fade" id="config">
+                        Hello Config
+                    </div>
+                    <div class="tab-pane fade" id="about">
+                        Hello about
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="myModalLabel">Stop Confirmation</h3>
+                        </div>
+                        <div class="modal-body">
+
+                            <p class="error-text"><i class="fa fa-warning modal-icon"></i>Are you sure you want to Stop
+                                the Plataform?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                            <button class="btn btn-danger" data-dismiss="modal">Stop</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <footer>
             <hr>
-
-            <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
             <p class="pull-right">A <a href="http://www.portnine.com/bootstrap-themes" target="_blank">Free Bootstrap
                 Theme</a> by <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
 
