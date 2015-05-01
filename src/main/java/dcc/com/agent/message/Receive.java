@@ -1,10 +1,8 @@
 package dcc.com.agent.message;
 
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.QueueingConsumer;
 import dcc.com.agent.config.AgentProperties;
+
+import java.net.InetAddress;
 
 
 /**
@@ -12,8 +10,15 @@ import dcc.com.agent.config.AgentProperties;
  */
 public class Receive {
     public static AgentProperties Properties;
-    public static void main(String[] args) throws Exception
-    {
+    public static void main(String[] args) throws Exception {
+        System.out.println(InetAddress.getLocalHost().getHostName());
+        System.out.println(InetAddress.getLocalHost().getHostAddress());
+
+
+
+
+
+        /*
         ConnectionFactory factory=new ConnectionFactory();
         factory.setUsername(Properties.Rabbitmq_Username);
         factory.setPassword(Properties.Rabbitmq_Password);
@@ -35,7 +40,5 @@ public class Receive {
             ReSender reSender =new ReSender();
             reSender.sender(message);
         }
-
-
-    }
-}
+*/
+    }}

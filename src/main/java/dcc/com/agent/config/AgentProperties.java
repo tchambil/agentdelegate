@@ -6,16 +6,21 @@ import dcc.com.agent.agentserver.User;
 import dcc.com.agent.mailaccessmanager.MailAccessManager;
 import dcc.com.agent.script.runtine.ScriptState;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 public class AgentProperties {
 
-    public static final String Rabbitmq_Username="agent";
-    public static final String  Rabbitmq_Host="192.168.50.25";
-    public static final String Rabbitmq_Password="159753";
-    public static final String Rabbitmq_QueueName="queue";
+    public static final String Rabbitmq_Username = "agent";
+    public static final String Rabbitmq_HostLocal = getHostAddress().toString();
+    public static final String Rabbitmq_HostPublic = "";
+    public static final String Rabbitmq_Password = "159753";
+    public static final String Rabbitmq_QueueName = "queue";
+
 
     public static final int appServerPort = AgentVariable.DEFAULT_APP_SERVER_PORT;
-    public static final String agentServerName = "PlataformAgentServer";
-    public static final String agentServerDescription = "Agent Server";
+    public static final String agentServerName = getHostName().toString() + " [" + getHostAddress().toString() + "]";
+    public static final String agentServerDescription = "Plataform Agent Server";
     public static final String adminPassword = "159753";
     public static final String mailServerHostName = "";
     public static final String mailServerUserName = "";
@@ -87,4 +92,24 @@ public class AgentProperties {
             .toString(AgentInstance.DEFAULT_LIMIT_INSTANCE_STATES_RETURNED);
     public static final String defaultLimitInstanceStatesReturned = Integer
             .toString(AgentInstance.DEFAULT_MAXIMUM_LIMIT_INSTANCE_STATES_RETURNED);
+
+    public static String getHostName() {
+
+        try {
+            return InetAddress.getLocalHost().getHostName();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getHostAddress() {
+        try {
+            return InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

@@ -75,7 +75,7 @@ public class PlataformController {
     @ResponseStatus(HttpStatus.OK)
     public String getAbout() throws JSONException {
         JSONObject aboutJson = new JsonListMap();
-        aboutJson.put("name", agentServer.config.get("name"));
+        aboutJson.put("Plataform", agentServer.config.get("Plataform"));
         aboutJson.put("software", agentServer.config.get("software"));
         aboutJson.put("version", agentServer.config.get("version"));
         aboutJson.put("description", agentServer.config.get("description"));

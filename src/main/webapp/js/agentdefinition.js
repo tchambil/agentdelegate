@@ -2,33 +2,32 @@
  * Created by teo on 22/04/15.
  */
 
-$(document).ready(function() {
+$(document).ready(function () {
     // Random Person AJAX Request
-        $('#btndefinition').click(function(){
-         $.ajax({
-            type:'POST',
+    $('#btndefinition').click(function () {
+        $.ajax({
+            type: 'POST',
             url: '../users/test-user-1/agent_definitions',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: $('#txtadefinition').val(),
-            success: function(data){
+            success: function (data) {
                 $('#txtadefinition').empty();
-                $('#txtadefinition').append(JSON.stringify(data,null,"\t"));
+                $('#txtadefinition').append(JSON.stringify(data, null, "\t"));
             },
-            error: function(err){
+            error: function (err) {
                 $('#txtadefinition').empty();
-                $('#txtadefinition').append(JSON.stringify(err,null,2));
+                $('#txtadefinition').append(JSON.stringify(err, null, 2));
             }
         }); //-- END of Ajax
 
 
     });
 
-    $('#btngetdefinition').click(function(){
-       $.get('../users/test-user-1/agent_definitions',function(data)
-        {
+    $('#btngetdefinition').click(function () {
+        $.get('../users/test-user-1/agent_definitions', function (data) {
             $('#txtadefinition').empty();
-            $('#txtadefinition').append(JSON.stringify(data,null,"\t"));
+            $('#txtadefinition').append(JSON.stringify(data, null, "\t"));
 
         }); //-- END of Ajax
 

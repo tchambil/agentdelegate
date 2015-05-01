@@ -17,7 +17,7 @@ public class MessageReceive {
     ConnectionFactory factory=new ConnectionFactory();
     factory.setUsername(Properties.Rabbitmq_Username);
     factory.setPassword(Properties.Rabbitmq_Password);
-    factory.setHost(Properties.Rabbitmq_Host);
+    factory.setHost(Properties.Rabbitmq_HostLocal);
     Connection connection=factory.newConnection();
     Channel channel=connection.createChannel();
 

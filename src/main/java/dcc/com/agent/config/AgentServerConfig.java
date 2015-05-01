@@ -16,16 +16,6 @@
 
 package dcc.com.agent.config;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-
-import org.apache.log4j.Logger;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-
 import dcc.com.agent.agentserver.AgentDefinition;
 import dcc.com.agent.agentserver.AgentInstance;
 import dcc.com.agent.agentserver.AgentServer;
@@ -36,6 +26,14 @@ import dcc.com.agent.script.runtine.ScriptState;
 import dcc.com.agent.util.JsonListMap;
 import dcc.com.agent.util.JsonUtils;
 import dcc.com.agent.util.ListMap;
+import org.apache.log4j.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 
 public class AgentServerConfig {
     static final Logger log = Logger.getLogger(AgentServerConfig.class);
@@ -223,10 +221,10 @@ public class AgentServerConfig {
         log.info("Setting defaults for config properties");
         this.config = new ListMap<String, String>();
 
-        put("name", agentServerProperties.agentServerName);
+        put("Plataform", agentServerProperties.agentServerName);
         put("description", agentServerProperties.agentServerDescription);
-        put("software", "s0");
-        put("version", "0.1.0");
+        put("software", "agentServer");
+        put("version", "1.0");
         put("website", agentServerProperties.website);
         put("admin_approve_user_create",
                 agentServerProperties.adminApproveUserCreate);
