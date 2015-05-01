@@ -91,7 +91,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="" href="index.html"><span class="navbar-brand"><span class="fa fa-paper-plane"></span> Aircraft</span></a>
+        <a class="" href="index.html"><span class="navbar-brand"><span
+                class="fa fa-paper-plane"></span> Agent Server</span></a>
+
     </div>
 
     <div class="navbar-collapse collapse" style="height: 1px;">
@@ -106,10 +108,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="./">My Account</a></li>
                     <li class="divider"></li>
-                    <li class="dropdown-header">Admin Panel</li>
                     <li><a href="./">Users</a></li>
-                    <li><a href="./">Security</a></li>
-                    <li><a tabindex="-1" href="./">Payments</a></li>
                     <li class="divider"></li>
                     <li><a tabindex="-1" href="sign-in.html">Logout</a></li>
                 </ul>
@@ -130,13 +129,24 @@
         <li>
             <ul class="dashboard-menu nav nav-list collapse in">
                 <li><a href="index.html"><span class="fa fa-caret-right"></span> Main</a></li>
-                <li><a href="users.html"><span class="fa fa-caret-right"></span> User List</a></li>
-                <li><a href="user.html"><span class="fa fa-caret-right"></span> User Profile</a></li>
+
             </ul>
         </li>
+        <!--<Users]-->
+        <li><a href="#" data-target=".users-menu" class="nav-header collapsed" data-toggle="collapse"><i
+                class="fa fa-fw fa-users"></i> Users<i class="fa fa-collapse"></i></a>
+        </li>
+        <li>
+            <ul class="users-menu nav nav-list collapse">
+                <li><a href="user.html"><span class="fa fa-caret-right"></span> User Profile</a></li>
+                <li><a href="users.html"><span class="fa fa-caret-right"></span> User List</a></li>
+
+            </ul>
+        </li>
+
         <!--<Agent Definitions]-->
         <li><a href="#" data-target=".legal-menu" class="nav-header collapsed" data-toggle="collapse"><i
-                class="fa fa-fw fa-legal"></i> Agent Definitions<i class="fa fa-collapse"></i></a>
+                class="fa fa-fw fa-tasks"></i> Agent Definitions<i class="fa fa-collapse"></i></a>
         </li>
         <li>
             <ul class="legal-menu nav nav-list collapse">
@@ -146,9 +156,10 @@
             </ul>
         </li>
         <!--<Agents]-->
-        <li data-popover="true"     rel="popover" data-placement="right">  <a href="#" data-target=".premium-menu"
-               class="nav-header collapsed"  data-toggle="collapse">
-                <i class="fa fa-fw fa-fighter-jet"></i> Agents<i class="fa fa-collapse"></i></a>
+        <li data-popover="true" rel="popover" data-placement="right"><a href="#" data-target=".premium-menu"
+                                                                        class="nav-header collapsed"
+                                                                        data-toggle="collapse">
+            <i class="fa fa-fw fa-eye-slash"></i> Agents<i class="fa fa-collapse"></i></a>
         </li>
         <li>
             <ul class="premium-menu nav nav-list collapse">
@@ -158,9 +169,11 @@
             </ul>
         </li>
         <!--<Groups]-->
-        <li data-popover="true"     rel="popover" data-placement="right">  <a href="#" data-target=".group-menu"
-                                                                              class="nav-header collapsed"  data-toggle="collapse">
-            <i class="fa fa-fw fa-arrows-alt"></i> Groups<i class="fa fa-collapse"></i></a>
+        <li data-popover="true" rel="popover" data-placement="right"><a href="#" data-target=".group-menu"
+                                                                        class="nav-header collapsed"
+                                                                        data-toggle="collapse">
+            <i class="fa fa-fw fa-arrows-alt"></i> Groups<i class="fa fa-collapse"></i><span
+                class="label label-info">+3</span></a>
         </li>
         <li>
             <ul class="group-menu nav nav-list collapse">
@@ -170,165 +183,55 @@
             </ul>
         </li>
         <!--<Account]-->
-    <li><a href="#" data-target=".accounts-menu" class="nav-header collapsed" data-toggle="collapse"><i
-            class="fa fa-fw fa-briefcase"></i> Account <span class="label label-info">+3</span></a>
-    </li>
-            <li>
-                <ul class="accounts-menu nav nav-list collapse">
-                    <li><a href="sign-in.html"><span class="fa fa-caret-right"></span> Sign In</a></li>
-                    <li><a href="sign-up.html"><span class="fa fa-caret-right"></span> Sign Up</a></li>
-                    <li><a href="reset-password.html"><span class="fa fa-caret-right"></span> Reset Password</a> </li>
-                </ul>
-            </li>
+        <li><a href="#" data-target=".accounts-menu" class="nav-header collapsed" data-toggle="collapse"><i
+                class="fa fa-fw fa-briefcase"></i> Account <i class="fa fa-collapse"></i></a>
+        </li>
+        <li>
+            <ul class="accounts-menu nav nav-list collapse">
+                <li><a href="sign-in.html"><span class="fa fa-caret-right"></span> Sign In</a></li>
+                <li><a href="sign-up.html"><span class="fa fa-caret-right"></span> Sign Up</a></li>
+                <li><a href="reset-password.html"><span class="fa fa-caret-right"></span> Reset Password</a></li>
+            </ul>
+        </li>
 
         <!--<Help]-->
-    <li><a href="help.html" class="nav-header"><i class="fa fa-fw fa-question-circle"></i> Help</a>
+        <li><a href="help.html" class="nav-header"><i class="fa fa-fw fa-question-circle"></i> Help</a>
 
-    </li>
+        </li>
         <!--<Faq]-->
-    <li><a href="faq.html" class="nav-header"><i class="fa fa-fw fa-comment"></i> Faq</a>
-    </li>
+        <li><a href="faq.html" class="nav-header"><i class="fa fa-fw fa-comment"></i> Faq</a>
+        </li>
 
     </ul>
 </div>
 
 <div class="content">
-<div class="header">
     <div class="stats">
-        <p class="stat"><span class="label label-info">5</span> Tickets</p>
-
-        <p class="stat"><span class="label label-success">27</span> Tasks</p>
-
-        <p class="stat"><span class="label label-danger">15</span> Overdue</p>
+        <span class="label label-info">Server:</span> Teofilo
+        <span class="label label-success">Address IP:</span> 192.168.3.10
+        <span class="label label-danger">Status:</span> running
+    </div>
+    <div class="header">
+        <h1 class="page-title">Plataform</h1>
     </div>
 
-    <h1 class="page-title">Plataform</h1>
-    <ul class="breadcrumb">
-        <li><a href="index.html">Home</a></li>
-        <li class="active">Plataform</li>
-    </ul>
+    <div class="main-content">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#home" data-toggle="tab">Profile</a></li>
+            <li><a href="#profile" data-toggle="tab">Password</a></li>
+        </ul>
 
-</div>
-<div class="main-content">
-    <div class="panel panel-default">
-        <a href="#page-stats" class="panel-heading" data-toggle="collapse">Latest Stats</a>
+        <footer>
+            <hr>
 
-        <div id="page-stats" class="panel-collapse panel-body collapse in">
-            <div class="row">
-        here its text....
-            </div>
-        </div>
+            <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
+            <p class="pull-right">A <a href="http://www.portnine.com/bootstrap-themes" target="_blank">Free Bootstrap
+                Theme</a> by <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
+
+            <p>© 2015 <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
+        </footer>
     </div>
-
-    <div class="row">
-        <div class="col-sm-6 col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading no-collapse">
-                <span class="panel-icon pull-right">
-                    <a href="#" class="demo-cancel-click" rel="tooltip" title="Click to refresh"><i
-                            class="fa fa-refresh"></i></a>
-                </span>
-
-                    Needed to Close
-                </div>
-                <table class="table list">
-                    <tbody>
-                    <tr>
-                        <td>
-                            <a href="#"><p class="title">Care Hospital</p></a>
-
-                            <p class="info">Sales Rating: 86%</p>
-                        </td>
-                        <td>
-                            <p>Date: 7/19/2012</p>
-                            <a href="#">View Transaction</a>
-                        </td>
-                        <td>
-                            <p class="text-danger h3 pull-right" style="margin-top: 12px;">$20,500</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="#"><p class="title">Custom Eyesight</p></a>
-
-                            <p class="info">Sales Rating: 58%</p>
-                        </td>
-                        <td>
-                            <p>Date: 7/19/2012</p>
-                            <a href="#">View Transaction</a>
-                        </td>
-                        <td>
-                            <p class="text-danger h3 pull-right" style="margin-top: 12px;">$12,600</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="#"><p class="title">Clear Dental</p></a>
-
-                            <p class="info">Sales Rating: 76%</p>
-                        </td>
-                        <td>
-                            <p>Date: 7/19/2012</p>
-                            <a href="#">View Transaction</a>
-                        </td>
-                        <td>
-                            <p class="text-danger h3 pull-right" style="margin-top: 12px;">$2,500</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="#"><p class="title">Safe Insurance</p></a>
-
-                            <p class="info">Sales Rating: 82%</p>
-                        </td>
-                        <td>
-                            <p>Date: 7/19/2012</p>
-                            <a href="#">View Transaction</a>
-                        </td>
-                        <td>
-                            <p class="text-danger h3 pull-right" style="margin-top: 12px;">$22,400</p>
-                        </td>
-                    </tr>
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-6">
-            <div class="panel panel-default">
-                <a href="#widget2container" class="panel-heading" data-toggle="collapse">Collapsible </a>
-
-                <div id="widget2container" class="panel-body collapse in">
-                    <h2>Built with Less</h2>
-
-                    <p>The CSS is built with Less. There is a compiled version included if you prefer plain CSS.</p>
-
-                    <p>Fava bean jícama seakale beetroot courgette shallot amaranth pea garbanzo carrot radicchio peanut
-                        leek pea sprouts arugula brussels sprout green bean. Spring onion broccoli chicory shallot
-                        winter purslane pumpkin gumbo cabbage squash beet greens lettuce celery. Gram zucchini swiss
-                        chard mustard burdock radish brussels sprout groundnut. Asparagus horseradish beet greens
-                        broccoli brussels.</p>
-
-                    <p><a class="btn btn-primary">Learn more »</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <footer>
-        <hr>
-
-        <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-        <p class="pull-right">A <a href="http://www.portnine.com/bootstrap-themes" target="_blank">Free Bootstrap
-            Theme</a> by <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
-
-        <p>© 2015 <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
-    </footer>
 </div>
-</div>
-
-
 <script src="js/site/bootstrap.js"></script>
 <script type="text/javascript">
     $("[rel=tooltip]").tooltip();
