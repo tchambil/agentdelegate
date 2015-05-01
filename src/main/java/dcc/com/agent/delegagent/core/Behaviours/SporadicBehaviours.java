@@ -3,7 +3,8 @@ package dcc.com.agent.delegagent.core.Behaviours;
 /**
  * Created by teo on 30/04/15.
  */
-        public class SporadicBehaviours extends RTBehaviours {
+
+public class SporadicBehaviours extends RTBehaviours {
 /*
     protected RelativeTime minInterarrival;
 

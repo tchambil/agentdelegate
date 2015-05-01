@@ -5,11 +5,11 @@ package dcc.com.agent.delegagent.core.Behaviours;
  */
 
 
-    ///    import javax.realtime.*;
+///    import javax.realtime.*;
 
 public class AperiodicBehaviours extends RTBehaviours {
 
-    public AperiodicBehaviours(){
+    public AperiodicBehaviours() {
         super();
 
     }

@@ -5,10 +5,10 @@ package dcc.com.agent.delegagent.core.Behaviours;
  */
 
 
-      //  import javax.realtime.*;
+//  import javax.realtime.*;
 
 
-public class RTBehaviours extends Behaviours{
+public class RTBehaviours extends Behaviours {
 
    /* protected RelativeTime cost;
     protected RelativeTime deadline;

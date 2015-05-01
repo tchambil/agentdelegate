@@ -1,4 +1,5 @@
 package dcc.com.agent.delegagent.core.agentes_ejemplos;
+
 import dcc.com.agent.delegagent.core.Agents.RTAgent;
 
 /*
@@ -19,7 +20,10 @@ import dcc.com.agent.delegagent.core.Agents.RTAgent;
 /*                                                        */
 /*              AGENTE CLIENTE SIMULADOR WEBOT            */
 /*                                                        */
-/**********************************************************/   
+
+/**
+ * ******************************************************
+ */
   
 /*import java.net.*;
 import java.io.*;

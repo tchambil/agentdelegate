@@ -5,7 +5,7 @@ package dcc.com.agent.delegagent.core.Communication;
  */
 
 
-        import dcc.com.agent.delegagent.core.AID;
+import dcc.com.agent.delegagent.core.AID;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -20,6 +20,7 @@ public class MessageQueue {
         table = new Hashtable();
         maxSize = 20;
     }
+
     public MessageQueue(int size) {
         maxSize = size;
         table = new Hashtable(maxSize);
@@ -36,15 +37,15 @@ public class MessageQueue {
     /**
      * @return the number of messages
      * currently in the queue
-     **/
+     */
     public int size() {
         return table.size();
     }
 
     public synchronized void add(ACLMessage msg) {
-        String St_index= "";
-        table.put(String.valueOf(index) , (ACLMessage) msg);
-        index = index + 1;	  //no se que hace, mirar
+        String St_index = "";
+        table.put(String.valueOf(index), (ACLMessage) msg);
+        index = index + 1;      //no se que hace, mirar
     }
 
 
@@ -54,8 +55,7 @@ public class MessageQueue {
         if (e.hasMoreElements()) {
             ACLMessage msg = (ACLMessage) table.remove(e.nextElement());
             return msg;
-        }
-        else
+        } else
             return null;
     }
 
@@ -64,8 +64,7 @@ public class MessageQueue {
         e = table.keys();
         while (e.hasMoreElements()) {
             ACLMessage msg = (ACLMessage) table.get(e.nextElement());
-            if ( sender.compareTo(msg.getSender()) == 1)
-            {
+            if (sender.compareTo(msg.getSender()) == 1) {
                 table.remove(msg); //borrar la entrada de la tabla
                 return msg;
             }
@@ -80,10 +79,10 @@ public class MessageQueue {
     private void PrintMessage() {
         Enumeration e;
         e = table.keys();
-        int i=0;
+        int i = 0;
         while (e.hasMoreElements()) {
             ACLMessage msg = (ACLMessage) table.get(e.nextElement());
-            System.out.println("Mensaje numero " +i + "  cuyo contenido es: " + msg.getContent());
+            System.out.println("Mensaje numero " + i + "  cuyo contenido es: " + msg.getContent());
         }
     }
 }

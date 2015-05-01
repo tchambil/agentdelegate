@@ -5,22 +5,20 @@ package dcc.com.agent.delegagent.core.Agents;
  */
 
 
-
-        import dcc.com.agent.delegagent.core.Behaviours.RTBehaviours;
-      //  import javax.realtime.*;
+import dcc.com.agent.delegagent.core.Behaviours.RTBehaviours;
+//  import javax.realtime.*;
 
 public class RTAgent extends Agent {
 
-    public class RTThread
-    {
+    public class RTThread {
 
         RTBehaviours behaviour;
 
        /*
-        public RTThread(RTBehaviours b,SchedulingParameters sched,ReleaseParameters release)//,MemoryArea area)
+        public RTThread(RTBehaviours)//,MemoryArea area)
 
         {
-            super(sched,release);
+            super();
             this.behaviour=b;
             if (platform.Debug) System.out.println("EJECUTADO CONSTRUCTOR DEL HILO DE TIEMPO REAL DEL AGENTE ");
         }
@@ -194,11 +192,6 @@ public class RTAgent extends Agent {
 
         long tantes, tahora;
         long cont=0;
-
-        // IMPORTANTE, redondeo hacia abajo:
-        // se hace asi para que si me quitan el procesador,
-        // el tiempo de espera no siga contando.
-        // Como maximo se comete un error de 1 msg.
         espera--;
 
         while (cont <espera){ // este bucle espera "espera" miliseg
@@ -207,7 +200,7 @@ public class RTAgent extends Agent {
             while (tahora-tantes < 1) // este bucle espera 1 msg
                 tahora=System.currentTimeMillis();
             cont++;
-        }*/
+        } */
     }
 }
 

@@ -1,5 +1,3 @@
-
-
 package dcc.com.agent.delegagent.core.agentes_ejemplos;
 
 import dcc.com.agent.delegagent.core.Agents.RTAgent;
@@ -9,7 +7,7 @@ import dcc.com.agent.delegagent.core.Agents.RTAgent;
 
 
 public class AgenteControlador extends RTAgent {/*
-	Pizarra pizarra;
+    Pizarra pizarra;
 	//TCPconexion conexion;
 	
 	String server ="158.42.185.131";

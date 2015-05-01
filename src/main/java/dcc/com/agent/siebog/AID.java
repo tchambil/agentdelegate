@@ -8,20 +8,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-/**
- * Agent identifier, consists of the runtime name and the platform identifier, in the form of
- * "name@host".
- *
- * @author <a href="tntvteod@neobee.net">Teodor-Najdan Trifunov</a>
- * @author <a href="mitrovic.dejan@gmail.com">Dejan Mitrovic</a>
- */
+
 public final class AID implements Serializable {
     private static final long serialVersionUID = 1L;
     private final String name;
     private final String host;
-    private final String str; // string representation
-
-    private static final String HOST_NAME = "xjaf"; // TODO Get cluster/host name.
+    private final String str;
+    private static final String HOST_NAME = "xjaf";
     public static final AID EXTERNAL_CLIENT = new AID("", "");
 
     public AID() {
@@ -29,15 +22,11 @@ public final class AID implements Serializable {
         host = "";
         str = "";
     }
-
-
-
     public AID(String name, String host) {
         this.name = name;
         this.host = host;
         str = name + "@" + host;
     }
-
     public AID(String jsonStr) {
         try {
             JSONObject json = new JSONObject(jsonStr);
@@ -49,7 +38,6 @@ public final class AID implements Serializable {
             throw new IllegalArgumentException(ex);
         }
     }
-
     @Override
     public int hashCode() {
         return str.hashCode();
@@ -78,7 +66,6 @@ public final class AID implements Serializable {
         }
         return obj.toString();
     }
-
     public String getName() {
         return name;
     }

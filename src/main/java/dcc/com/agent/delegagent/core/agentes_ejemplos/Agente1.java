@@ -12,12 +12,13 @@
  * Ventana - Preferencias - Java - Estilo de código - Plantillas de código
  */
 package dcc.com.agent.delegagent.core.agentes_ejemplos;
+
 import dcc.com.agent.delegagent.core.Agents.RTAgent;
 
 //import javax.realtime.*;
 
 public class Agente1 extends RTAgent {
-	/*public Agente1(Platform platform, String name)
+    /*public Agente1(Platform platform, String name)
     {
         super(platform,name);    
       

@@ -4,7 +4,7 @@ package dcc.com.agent.delegagent.core.Behaviours;
  * Created by teo on 30/04/15.
  */
 
-        public class PeriodicBehaviours extends RTBehaviours {
+public class PeriodicBehaviours extends RTBehaviours {
 
    /* protected RelativeTime start;
     protected RelativeTime period;*/

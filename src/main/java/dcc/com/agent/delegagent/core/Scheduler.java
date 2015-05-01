@@ -5,30 +5,34 @@ package dcc.com.agent.delegagent.core;
  */
 
 
-
-        import dcc.com.agent.delegagent.core.Agents.Agent;
-        import dcc.com.agent.delegagent.core.Behaviours.Behaviours;
+import dcc.com.agent.delegagent.core.Agents.Agent;
+import dcc.com.agent.delegagent.core.Behaviours.Behaviours;
 
 public class Scheduler {
 
 
     public Behaviours blockedBehaviours;
-    /* {transient=false, volatile=false}*/
     public Behaviours readyBehaviours;
-	  /* {transient=false, volatile=false}*/
 
     public Scheduler(Agent a) {
     }
+
     public void Add(Behaviours b) {
     }
+
     public void Block(Behaviours b) {
     }
+
     public void Remove(Behaviours b) {
     }
+
     public void Restart(Behaviours b) {
+
     }
+
     public void RestartAll() {
     }
+
     public Behaviours Schedule() {
         return null;
     }
