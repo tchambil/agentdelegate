@@ -1,6 +1,6 @@
-package dcc.com.agent.delegagent.core.agentes_ejemplos;
+package dcc.com.agent.siebog.core.agentes_ejemplos;
 
-import dcc.com.agent.delegagent.core.Agents.RTAgent;
+import dcc.com.agent.siebog.core.Agents.RTAgent;
 
 //import javax.realtime.RelativeTime;
 //import Robot.TCPconexion;

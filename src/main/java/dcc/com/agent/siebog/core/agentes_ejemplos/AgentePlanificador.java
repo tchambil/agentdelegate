@@ -1,16 +1,9 @@
 //import java.awt.Point;
 
-package dcc.com.agent.delegagent.core.agentes_ejemplos;
+package dcc.com.agent.siebog.core.agentes_ejemplos;
 
 
-import dcc.com.agent.delegagent.core.AID;
-import dcc.com.agent.delegagent.core.Agents.RTAgent;
-import dcc.com.agent.delegagent.core.Behaviours.PeriodicBehaviours;
-import dcc.com.agent.delegagent.core.Communication.ACLMessage;
-import dcc.com.agent.delegagent.core.EjemploVRS.Pizarra;
-import dcc.com.agent.delegagent.core.EjemploVRS.Point;
-import dcc.com.agent.delegagent.core.EjemploVRS.Voraz;
-import dcc.com.agent.delegagent.core.Platform;
+import dcc.com.agent.siebog.core.Agents.RTAgent;
 
 /*
  * Creado el 03-jun-2005
@@ -25,12 +18,13 @@ import dcc.com.agent.delegagent.core.Platform;
  *         TODO Para cambiar la plantilla de este comentario generado, vaya a
  *         Ventana - Preferencias - Java - Estilo de código - Plantillas de código
  */
+
 public class AgentePlanificador extends RTAgent {
 
-    Point[] puntos;
-    int indicepunto;
-    Pizarra pizarra;
 
+    int indicepunto=0;
+
+/*
     public AgentePlanificador(Platform platform, String name, Pizarra Tabla) {
 
         //super(platform,name);
@@ -52,14 +46,7 @@ public class AgentePlanificador extends RTAgent {
     }
 
     class Acciones extends PeriodicBehaviours {
-        /*
-          public Acciones(RelativeTime start,RelativeTime cost, RelativeTime deadline,int priority, RelativeTime period)
-         {
 
-           super(start,cost,deadline,priority,period);
-
-         }
-        */
         public void Task() {
             long tiempo_coste, tiempo, tiempo_deadline;
             //  RelativeTime deadline;
@@ -228,15 +215,6 @@ public class AgentePlanificador extends RTAgent {
             tiempo_coste = System.currentTimeMillis() - tiempo_coste;
             System.out.println("coste de la tarea navegación: " + tiempo_coste);
         } //fin task
-    } //fin comportamiento
-    
-  /*  public void run()
-    {    
-    	Acciones behaviour1 = new Acciones( new RelativeTime(0,0),
-    										new RelativeTime(20,0),
-											new RelativeTime(200,0),
-											10,
-											new RelativeTime(200,0));
-    	this.AddRTBehaviour(behaviour1);
-    }*/
-} //fin agente
+    } */
+
+}

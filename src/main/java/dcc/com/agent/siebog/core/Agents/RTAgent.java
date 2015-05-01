@@ -1,11 +1,11 @@
-package dcc.com.agent.delegagent.core.Agents;
+package dcc.com.agent.siebog.core.Agents;
 
 /**
  * Created by teo on 30/04/15.
  */
 
 
-import dcc.com.agent.delegagent.core.Behaviours.RTBehaviours;
+import dcc.com.agent.siebog.core.Behaviours.RTBehaviours;
 //  import javax.realtime.*;
 
 public class RTAgent extends Agent {

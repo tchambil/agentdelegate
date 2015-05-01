@@ -1,11 +1,11 @@
-package dcc.com.agent.delegagent.core.Communication;
+package dcc.com.agent.siebog.core.Communication;
 
 /**
  * Created by teo on 30/04/15.
  */
 
 
-import dcc.com.agent.delegagent.core.AID;
+import dcc.com.agent.siebog.core.AID;
 
 import java.util.Enumeration;
 import java.util.Hashtable;

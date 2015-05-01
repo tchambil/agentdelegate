@@ -1,17 +1,17 @@
-package dcc.com.agent.delegagent.core.Agents;
+package dcc.com.agent.siebog.core.Agents;
 
 /**
  * Created by teo on 30/04/15.
  */
 
 
-import dcc.com.agent.delegagent.core.AID;
-import dcc.com.agent.delegagent.core.AMS;
-import dcc.com.agent.delegagent.core.Behaviours.Behaviours;
-import dcc.com.agent.delegagent.core.Communication.ACLMessage;
-import dcc.com.agent.delegagent.core.Communication.MessageQueue;
-import dcc.com.agent.delegagent.core.Dispatcher;
-import dcc.com.agent.delegagent.core.Platform;
+import dcc.com.agent.siebog.core.AID;
+import dcc.com.agent.siebog.core.AMS;
+import dcc.com.agent.siebog.core.Behaviours.Behaviours;
+import dcc.com.agent.siebog.core.Communication.ACLMessage;
+import dcc.com.agent.siebog.core.Communication.MessageQueue;
+import dcc.com.agent.siebog.core.Dispatcher;
+import dcc.com.agent.siebog.core.Platform;
 
 public class Agent extends Thread {
 

@@ -1,12 +1,12 @@
-package dcc.com.agent.delegagent.core;
+package dcc.com.agent.siebog.core;
 
 /**
  * Created by teo on 30/04/15.
  */
 
 
-import dcc.com.agent.delegagent.core.Agents.Agent;
-import dcc.com.agent.delegagent.core.Behaviours.Behaviours;
+import dcc.com.agent.siebog.core.Agents.Agent;
+import dcc.com.agent.siebog.core.Behaviours.Behaviours;
 
 public class Scheduler {
 

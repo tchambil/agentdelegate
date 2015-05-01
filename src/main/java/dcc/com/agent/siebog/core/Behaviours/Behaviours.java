@@ -1,4 +1,4 @@
-package dcc.com.agent.delegagent.core.Behaviours;
+package dcc.com.agent.siebog.core.Behaviours;
 
 /**
  * Created by teo on 30/04/15.
