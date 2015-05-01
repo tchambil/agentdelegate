@@ -13,15 +13,11 @@
  */
 package dcc.com.agent.delegagent.core.agentes_ejemplos;
 import dcc.com.agent.delegagent.core.Agents.RTAgent;
-import dcc.com.agent.delegagent.core.Behaviours.*;
-import dcc.com.agent.delegagent.core.Communication.ACLMessage;
-import dcc.com.agent.delegagent.core.AID;
-import dcc.com.agent.delegagent.core.Platform;
 
-import javax.realtime.*;
+//import javax.realtime.*;
 
 public class Agente1 extends RTAgent {
-	public Agente1(Platform platform, String name) 
+	/*public Agente1(Platform platform, String name)
     {
         super(platform,name);    
       
@@ -91,5 +87,5 @@ public class Agente1 extends RTAgent {
                                       
      this.AddRTBehaviour(behaviour);
     
-    }
+    }*/
 }

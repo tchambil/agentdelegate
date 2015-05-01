@@ -2,16 +2,16 @@
 
 package dcc.com.agent.delegagent.core.agentes_ejemplos;
 
-import javax.realtime.*;
 
-import Agents.RTAgent;
-import Behaviours.PeriodicBehaviours;
-import Communication.ACLMessage;
-import Core.AID;
-import Core.Platform;
-import EjemploVRS.Pizarra;
-import EjemploVRS.Voraz;
-import EjemploVRS.Point;
+
+import  dcc.com.agent.delegagent.core.Agents.RTAgent;
+import  dcc.com.agent.delegagent.core.Behaviours.PeriodicBehaviours;
+import  dcc.com.agent.delegagent.core.Communication.ACLMessage;
+import  dcc.com.agent.delegagent.core.AID;
+import  dcc.com.agent.delegagent.core.Platform;
+import  dcc.com.agent.delegagent.core.EjemploVRS.Pizarra;
+import  dcc.com.agent.delegagent.core.EjemploVRS.Voraz;
+import  dcc.com.agent.delegagent.core.EjemploVRS.Point;
 
 /*
  * Creado el 03-jun-2005
@@ -34,7 +34,7 @@ public class AgentePlanificador extends RTAgent {
 	public AgentePlanificador(Platform platform, String name,Pizarra Tabla) 
     {    
 		
-		super(platform,name);
+		//super(platform,name);
 		if (platform.Debug) System.out.println("INICIALIZANDO AGENTE PLANIFICADOR....");
 	 	int i;
 	 	double cost;
@@ -55,18 +55,18 @@ public class AgentePlanificador extends RTAgent {
 	
     class Acciones extends PeriodicBehaviours 
     {   
-      
+      /*
 		public Acciones(RelativeTime start,RelativeTime cost, RelativeTime deadline,int priority, RelativeTime period)
        {   
        
          super(start,cost,deadline,priority,period);
    
        }       
-      
+      */
        public void Task()
        {
         long tiempo_coste,tiempo,tiempo_deadline;
-        RelativeTime deadline;    
+      //  RelativeTime deadline;
         if (platform.Verbose) System.out.println("Ejecutando tarea ACCIONES del agente PLANIFICADOR .......");
         
         tiempo_coste = tiempo =  System.currentTimeMillis();
@@ -76,8 +76,8 @@ public class AgentePlanificador extends RTAgent {
          platform.kiwi.poner(tiempo,"START",2);
          platform.kiwi.poner(tiempo,"READY-B",2); 
          platform.kiwi.poner(tiempo,"EXEC-B",2); 
-         deadline = GetDeadline();
-         tiempo_deadline = deadline.getMilliseconds();
+        // deadline = GetDeadline();
+         tiempo_deadline = System.currentTimeMillis();//deadline.getMilliseconds();
          tiempo = tiempo + tiempo_deadline;
          platform.kiwi.poner(tiempo,"DEADLINE",2);
        }
@@ -295,7 +295,7 @@ public class AgentePlanificador extends RTAgent {
        } //fin task   
     } //fin comportamiento
     
-    public void run() 
+  /*  public void run()
     {    
     	Acciones behaviour1 = new Acciones( new RelativeTime(0,0),
     										new RelativeTime(20,0),
@@ -303,5 +303,5 @@ public class AgentePlanificador extends RTAgent {
 											10,
 											new RelativeTime(200,0));
     	this.AddRTBehaviour(behaviour1);
-    }
+    }*/
 } //fin agente

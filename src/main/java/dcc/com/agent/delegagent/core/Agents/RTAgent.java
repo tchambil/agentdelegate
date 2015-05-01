@@ -6,18 +6,19 @@ package dcc.com.agent.delegagent.core.Agents;
 
 
 
-        import dcc.com.agent.delegagent.core.Behaviours.*;
-        import dcc.com.agent.delegagent.core.Platform;
-        import javax.realtime.*;
+        import dcc.com.agent.delegagent.core.Behaviours.RTBehaviours;
+      //  import javax.realtime.*;
 
 public class RTAgent extends Agent {
 
-    public class RTThread extends RealtimeThread
+    public class RTThread
     {
 
         RTBehaviours behaviour;
 
+       /*
         public RTThread(RTBehaviours b,SchedulingParameters sched,ReleaseParameters release)//,MemoryArea area)
+
         {
             super(sched,release);
             this.behaviour=b;
@@ -206,7 +207,7 @@ public class RTAgent extends Agent {
             while (tahora-tantes < 1) // este bucle espera 1 msg
                 tahora=System.currentTimeMillis();
             cont++;
-        }
+        }*/
     }
 }
 

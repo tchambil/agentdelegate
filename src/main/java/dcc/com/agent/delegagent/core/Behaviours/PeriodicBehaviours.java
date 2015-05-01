@@ -4,14 +4,12 @@ package dcc.com.agent.delegagent.core.Behaviours;
  * Created by teo on 30/04/15.
  */
 
-        import javax.realtime.*;
+        public class PeriodicBehaviours extends RTBehaviours {
 
-public class PeriodicBehaviours extends RTBehaviours {
-
-    protected RelativeTime start;
-    protected RelativeTime period;
+   /* protected RelativeTime start;
+    protected RelativeTime period;*/
     /* {transient=false, volatile=false}*/
-    public PeriodicBehaviours(){
+    /*public PeriodicBehaviours(){
         super();
     }
     public PeriodicBehaviours(RelativeTime start,RelativeTime cost, RelativeTime deadline, int priority,RelativeTime period){
@@ -34,6 +32,6 @@ public class PeriodicBehaviours extends RTBehaviours {
 
     public RelativeTime GetStart(){
         return this.start;
-    }
+    }*/
 }
 

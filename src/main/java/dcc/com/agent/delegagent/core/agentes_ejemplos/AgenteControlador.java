@@ -2,38 +2,13 @@
 
 package dcc.com.agent.delegagent.core.agentes_ejemplos;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import dcc.com.agent.delegagent.core.Agents.RTAgent;
 
-import javax.realtime.RelativeTime;
-
-import Agents.RTAgent;
-import Behaviours.PeriodicBehaviours;
-import Communication.*;
-import Core.Platform;
-import EjemploVRS.Pizarra;
+//import javax.realtime.RelativeTime;
 //import Robot.TCPconexion;
 
 
-
-/*
- * Creado el 03-jun-2005
- *
- * TODO Para cambiar la plantilla de este archivo generado, vaya a
- * Ventana - Preferencias - Java - Estilo de código - Plantillas de código
- */
-
-/**
- * @author root
- *
- * TODO Para cambiar la plantilla de este comentario generado, vaya a
- * Ventana - Preferencias - Java - Estilo de código - Plantillas de código
- */
-public class AgenteControlador extends RTAgent {
+public class AgenteControlador extends RTAgent {/*
 	Pizarra pizarra;
 	//TCPconexion conexion;
 	
@@ -212,7 +187,7 @@ public class AgenteControlador extends RTAgent {
        	 		System.out.println(lista_msg[indice]);
        	 		
        	 		Send(msgconfirmacion);
-       	 	*/
+
        	 		
        	 	 	//conexion.ProtocoloEnvioMensaje(maxaccion);  
        	 	    output_socket_bind.println(maxaccion);
@@ -309,6 +284,6 @@ public class AgenteControlador extends RTAgent {
 									 new RelativeTime(1000,0));
          this.AddRTBehaviour(behaviour1);
          
-     }
+     }*/
 } //fin agente controlador
 
