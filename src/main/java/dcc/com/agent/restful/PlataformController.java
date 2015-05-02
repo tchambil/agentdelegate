@@ -50,8 +50,15 @@ public class PlataformController {
         logger.info("- - - - - - - - Starting agent Server successful - - - - - - ");
         logger.info("- - - - - - - - - - - - - - - - - - - - - - - - - - -- - - - ");
 
+
+        AgentScheduler agentScheduler = AgentScheduler.singleton;
+        logger.info("Starting Agent server");
+        // Sleep a little to assure status reflects any recent operation
+        Thread.sleep(100);
         JSONObject message = new JSONObject();
-        message.put("message", "Starting agent Server successful");
+        message.put("status", agentScheduler == null ? "shutdown"
+                : agentScheduler.getStatus());
+       message.put("message", "Starting agent Server successful");
         return message.toString();
 
     }
@@ -194,7 +201,25 @@ public class PlataformController {
                             + e);
         }
     }
+    @RequestMapping(value = "/status/pause", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public String putStatusPause() throws Exception {
 
+        // Request the agent scheduler to pause
+        AgentScheduler.singleton.pause();
+
+        // Sleep a little to assure status reflects any recent operation
+        Thread.sleep(100);
+
+        AgentScheduler agentScheduler = AgentScheduler.singleton;
+        logger.info("Pause Agent server");
+        JSONObject message = new JSONObject();
+        message.put("status", agentScheduler == null ? "shutdown"
+                : agentScheduler.getStatus());
+        message.put("message", "Pause Agent server");
+        return message.toString();
+
+    }
     @RequestMapping(value = "/status", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public String getStatus() throws JSONException, InterruptedException {
@@ -207,24 +232,36 @@ public class PlataformController {
         // Get the status info
         JSONObject aboutJson = new JsonListMap();
         AgentScheduler agentScheduler = AgentScheduler.singleton;
-        aboutJson.put("status", agentScheduler == null ? "shutdown"
-                : agentScheduler.getStatus());
-        aboutJson.put("since", DateUtils.toRfcString(agentServer.startTime));
-        aboutJson.put("num_registered_users", agentServer.users.size());
-        int numActiveUsers = 0;
-        for (NameValue<AgentInstanceList> agentInstanceListNameValue : agentServer.agentInstances)
-            if (agentInstanceListNameValue.value.size() > 0)
-                numActiveUsers++;
-        aboutJson.put("num_active_users", numActiveUsers);
-        int num_registered_agents = 0;
-        for (NameValue<AgentDefinitionList> agentDefinitionListNameValue : agentServer.agentDefinitions)
-            num_registered_agents += agentDefinitionListNameValue.value.size();
-        aboutJson.put("num_registered_agents", num_registered_agents);
-        int num_active_agents = 0;
-        for (NameValue<AgentInstanceList> agentInstanceListNameValue : agentServer.agentInstances)
-            num_active_agents += agentInstanceListNameValue.value.size();
-        aboutJson.put("num_active_agents", num_active_agents);
+        if((agentScheduler == null))
+        {
+             aboutJson.put("status","null");
+             aboutJson.put("since","null");
+             aboutJson.put("num_registered_users","null");
+             aboutJson.put("num_active_users","null");
+             aboutJson.put("num_active_users","null");
+             aboutJson.put("num_registered_agents","null");
+             aboutJson.put("num_active_agents","null");
+        }
+        else {
+            aboutJson.put("status", agentScheduler == null ? "shutdown"
+                    : agentScheduler.getStatus());
 
+            aboutJson.put("since", DateUtils.toRfcString(agentServer.startTime));
+            aboutJson.put("num_registered_users", agentServer.users.size());
+            int numActiveUsers = 0;
+            for (NameValue<AgentInstanceList> agentInstanceListNameValue : agentServer.agentInstances)
+                if (agentInstanceListNameValue.value.size() > 0)
+                    numActiveUsers++;
+            aboutJson.put("num_active_users", numActiveUsers);
+            int num_registered_agents = 0;
+            for (NameValue<AgentDefinitionList> agentDefinitionListNameValue : agentServer.agentDefinitions)
+                num_registered_agents += agentDefinitionListNameValue.value.size();
+            aboutJson.put("num_registered_agents", num_registered_agents);
+            int num_active_agents = 0;
+            for (NameValue<AgentInstanceList> agentInstanceListNameValue : agentServer.agentInstances)
+                num_active_agents += agentInstanceListNameValue.value.size();
+            aboutJson.put("num_active_agents", num_active_agents);
+        }
 
         return aboutJson.toString(4);
     }
@@ -274,6 +311,7 @@ public class PlataformController {
         agentServer.config.restoreDefaults();
         logger.info("Reseted config Agent server");
         // Update was successful
+
         JSONObject message = new JSONObject();
         message.put("message", "Reseted config Agent server");
         return message.toString();
@@ -282,7 +320,7 @@ public class PlataformController {
 
     @RequestMapping(value = "/shutdown", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public boolean putshutdown() throws Exception {
+    public String putshutdown() throws Exception {
         // Request the agent app server to shutdown
         // TODO: Can we really do this here and still return a response?
         // Or do we need to set a timer, return, and shutdown independent of
@@ -290,28 +328,27 @@ public class PlataformController {
 
         // Spin up a separate thread to gracefully shutdown the server in a
         // timely manner
+
+
         AgentAppServerShutdown agentAppServerShutdown = new AgentAppServerShutdown(
                 agentServer);
         shutdownThread = new Thread(agentAppServerShutdown);
         shutdownThread.start();
         logger.info("Shutdown Agent server");
-        // Done
-        return true;
 
-    }
-
-    @RequestMapping(value = "/status/pause", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    public String putStatusPause() throws Exception {
-
-        // Request the agent scheduler to pause
-        AgentScheduler.singleton.pause();
-        logger.info("Pause Agent server");
-        JSONObject message = new JSONObject();
-        message.put("message", "Pause Agent server");
+        Thread.sleep(100);
+        AgentScheduler agentScheduler = AgentScheduler.singleton;
+         JSONObject message = new JSONObject();
+        message.put("status", agentScheduler == null ? "shutdown"
+                : agentScheduler.getStatus());
+        message.put("message", "Shutdown agent Server successful");
         return message.toString();
 
+
+
     }
+
+
 
     @RequestMapping(value = "/run", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -371,9 +408,18 @@ public class PlataformController {
         // Force the scheduler to start
         AgentScheduler agentScheduler = new AgentScheduler(agentServer);
         logger.info("Restart Agent server");
+
+
+        Thread.sleep(100);
+        AgentScheduler agentScheduler2 = AgentScheduler.singleton;
         JSONObject message = new JSONObject();
-        message.put("message", "Restart Agent server");
+        message.put("status", agentScheduler2 == null ? "shutdown"
+                : agentScheduler2.getStatus());
+        message.put("message", "Restart agent Server successful");
         return message.toString();
+
+
+
 
 
     }
@@ -386,8 +432,14 @@ public class PlataformController {
         AgentScheduler.singleton.resume();
         logger.info("Resume Agent server");
 
+
+
+        Thread.sleep(100);
+        AgentScheduler agentScheduler2 = AgentScheduler.singleton;
         JSONObject message = new JSONObject();
-        message.put("message", "Resume Agent server");
+        message.put("status", agentScheduler2 == null ? "shutdown"
+                : agentScheduler2.getStatus());
+        message.put("message", "Resume agent Server successful ");
         return message.toString();
 
     }
@@ -401,7 +453,12 @@ public class PlataformController {
         AgentScheduler.singleton.shutdown();
         logger.info("Agent server shut down");
 
+
+        Thread.sleep(100);
+        AgentScheduler agentScheduler2 = AgentScheduler.singleton;
         JSONObject message = new JSONObject();
+        message.put("status", agentScheduler2 == null ? "shutdown"
+                : agentScheduler2.getStatus());
         message.put("message", "Agent server shut down");
         return message.toString();
     }
@@ -432,8 +489,14 @@ public class PlataformController {
         AgentScheduler.singleton.shutdown();
         logger.info("Agent server shut down");
 
+
+
+        Thread.sleep(100);
+        AgentScheduler agentScheduler2 = AgentScheduler.singleton;
         JSONObject message = new JSONObject();
-        message.put("message", "Agent server shut down");
+        message.put("status", agentScheduler2 == null ? "shutdown"
+                : agentScheduler2.getStatus());
+        message.put("message", "Stop Agent server");
         return message.toString();
     }
 }

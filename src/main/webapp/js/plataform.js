@@ -1,5 +1,11 @@
 $(document).ready(function () {
     // Random Person AJAX Request
+ var status="nulsssl";
+
+    $('#headerstatus').empty();
+    $('#headerstatus').append(status);
+
+
 
     $('#getstart').click(function (e) {
         $.ajax({
@@ -127,6 +133,7 @@ $(document).ready(function () {
            // $('#responsestatus').empty();
           //  $('#responsestatus').append(JSON.stringify(server, null, "\t"));
             $("#statusInput").empty();
+            $("#headerstatus").empty();
             $("#sinceInput").empty();
             $("#num_registered_usersInput").empty();
             $("#num_active_usersInput").empty();
@@ -134,6 +141,7 @@ $(document).ready(function () {
             $("#num_active_agentsInput").empty();
 
             $("#statusInput").append(server.status);
+            $("#headerstatus").append(server.status);
             $("#sinceInput").append(server.since);
             $("#num_registered_usersInput").append(server.num_registered_users);
             $("#num_active_usersInput").append(server.num_active_users);
