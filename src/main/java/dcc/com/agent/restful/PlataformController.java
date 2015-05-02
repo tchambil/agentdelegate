@@ -3,6 +3,7 @@ package dcc.com.agent.restful;
 import dcc.com.agent.agentserver.*;
 import dcc.com.agent.appserver.AgentAppServer;
 import dcc.com.agent.appserver.AgentAppServerShutdown;
+import dcc.com.agent.config.AgentProperties;
 import dcc.com.agent.field.Field;
 import dcc.com.agent.scheduler.AgentScheduler;
 import dcc.com.agent.script.intermediate.ScriptNode;
@@ -232,6 +233,7 @@ public class PlataformController {
         // Get the status info
         JSONObject aboutJson = new JsonListMap();
         AgentScheduler agentScheduler = AgentScheduler.singleton;
+
         if((agentScheduler == null))
         {
              aboutJson.put("status","null");
@@ -241,6 +243,7 @@ public class PlataformController {
              aboutJson.put("num_active_users","null");
              aboutJson.put("num_registered_agents","null");
              aboutJson.put("num_active_agents","null");
+
         }
         else {
             aboutJson.put("status", agentScheduler == null ? "shutdown"
@@ -262,7 +265,8 @@ public class PlataformController {
                 num_active_agents += agentInstanceListNameValue.value.size();
             aboutJson.put("num_active_agents", num_active_agents);
         }
-
+        aboutJson.put("HostName", AgentProperties.agentServerHostName);
+        aboutJson.put("IP",AgentProperties.agentServerIP);
         return aboutJson.toString(4);
     }
 

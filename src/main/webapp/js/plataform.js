@@ -1,12 +1,5 @@
 $(document).ready(function () {
     // Random Person AJAX Request
- var status="nulsssl";
-
-    $('#headerstatus').empty();
-    $('#headerstatus').append(status);
-
-
-
     $('#getstart').click(function (e) {
         $.ajax({
             type: "GET",
@@ -14,8 +7,10 @@ $(document).ready(function () {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data, status, jqXHR) {
-                $('#personResponse').empty();
-                $('#personResponse').append(JSON.stringify(data, null, "\t"));
+                $("#idmessage").empty();
+                $("#idmessage").append(data.message);
+                $("#headerStatus").empty();
+                $("#headerStatus").append('[ '+data.status+' ]');
             },
 
             error: function (jqXHR, status) {
@@ -33,8 +28,11 @@ $(document).ready(function () {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data, status, jqXHR) {
-                $('#personResponse').empty();
-                $('#personResponse').append(JSON.stringify(data, null, "\t"));
+
+                $("#headerStatus").empty();
+                $("#headerStatus").append('[ '+data.status+' ]');
+                $("#idmessage").empty();
+                $("#idmessage").append(data.message);
             },
 
             error: function (jqXHR, status) {
@@ -49,12 +47,14 @@ $(document).ready(function () {
     $('#putrestart').click(function (e) {
         $.ajax({
             type: "PUT",
-            url: '../status/restart',
+            url: '../status/resume',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data, status, jqXHR) {
-                $('#personResponse').empty();
-                $('#personResponse').append(JSON.stringify(data, null, "\t"));
+                $("#idmessage").empty();
+                $("#idmessage").append(data.message);
+                $("#headerStatus").empty();
+                $("#headerStatus").append('[ '+data.status+' ]');
             },
 
             error: function (jqXHR, status) {
@@ -72,8 +72,10 @@ $(document).ready(function () {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data, status, jqXHR) {
-                $('#personResponse').empty();
-                $('#personResponse').append(JSON.stringify(data, null, "\t"));
+                $("#idmessage").empty();
+                $("#idmessage").append(data.message);
+                $("#headerStatus").empty();
+                $("#headerStatus").append('[ '+data.status+' ]');
             },
 
             error: function (jqXHR, status) {
@@ -91,8 +93,13 @@ $(document).ready(function () {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data, status, jqXHR) {
-                $('#personResponse').empty();
-                $('#personResponse').append(JSON.stringify(data, null, "\t"));
+
+                $("#idmessage").empty();
+                $("#idmessage").append(data.message);
+
+                $("#headerStatus").empty();
+                $("#headerStatus").append('[ '+data.status+' ]');
+
             },
 
             error: function (jqXHR, status) {
@@ -147,6 +154,49 @@ $(document).ready(function () {
             $("#num_active_usersInput").append(server.num_active_users);
             $("#num_registered_agentsInput").append(server.num_registered_agents);
             $("#num_active_agentsInput").append(server.num_active_agents);
+
+        });
+    });
+
+    $.ajax({
+        url: "../status"
+    }).then(function(data) {
+        $("#idmessage").empty();
+        $("#idmessage").append(data.message);
+        $("#headerServer").empty();
+        $("#headerServer").append('['+data.HostName+']');
+        $("#headerIp").empty();
+        $("#headerIp").append('['+data.IP+']');
+        $("#headerStatus").empty();
+        $("#headerStatus").append('[ '+data.status+' ]');
+
+    });
+
+    $("#btnstatus").click(function (e) {
+        $.get('../status', function (server) {
+            // $('#responsestatus').empty();
+            //  $('#responsestatus').append(JSON.stringify(server, null, "\t"));
+            $("#statusInput").empty();
+
+            $("#sinceInput").empty();
+            $("#num_registered_usersInput").empty();
+            $("#num_active_usersInput").empty();
+            $("#num_registered_agentsInput").empty();
+            $("#num_active_agentsInput").empty();
+
+            $("#statusInput").append(server.status);
+            $("#headerStatus").empty();
+            $("#headerStatus").append('[ '+server.status+' ]');
+            $("#sinceInput").append(server.since);
+            $("#num_registered_usersInput").append(server.num_registered_users);
+            $("#num_active_usersInput").append(server.num_active_users);
+            $("#num_registered_agentsInput").append(server.num_registered_agents);
+            $("#num_active_agentsInput").append(server.num_active_agents);
+
+            $("#headerServer").empty();
+            $("#headerServer").append('['+server.HostName+']');
+            $("#headerIp").empty();
+            $("#headerIp").append('['+server.IP+']');
 
         });
     });

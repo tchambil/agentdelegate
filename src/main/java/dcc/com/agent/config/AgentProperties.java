@@ -20,6 +20,8 @@ public class AgentProperties {
 
     public static final int appServerPort = AgentVariable.DEFAULT_APP_SERVER_PORT;
     public static final String agentServerName = getHostName().toString() + " [" + getHostAddress().toString() + "]";
+    public static final String agentServerIP=getHostAddress().toString();
+    public static final String agentServerHostName=getHostName();
     public static final String agentServerDescription = "Plataform Agent Server";
     public static final String adminPassword = "159753";
     public static final String mailServerHostName = "";

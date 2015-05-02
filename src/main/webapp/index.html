@@ -207,9 +207,12 @@
 
 <div class="content">
     <div class="stats">
-        <span class="label label-info">Server:</span> Teofilo
-        <span class="label label-success">Address IP:</span> 192.168.3.10
-        <span   class="label label-danger">Status:</span> <span id="headerstatus">null</span>
+        <span   class="label label-danger">Status:</span> <span id="headerStatus">null</span>
+        <span>&nbsp;&nbsp;</span>
+        <span class="label label-success">Address IP:</span> <span id="headerIp">null</span>
+        <span>&nbsp;&nbsp;</span>
+        <span class="label label-info">Server:</span> <span id="headerServer">null</span>
+        <span>&nbsp;&nbsp;</span>
     </div>
     <div class="header">
         <h1 class="page-title">Plataform</h1>
@@ -239,15 +242,17 @@
 
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane active in" id="manage">
-                        <div class="btn-toolbar list-toolbar">
+                        <div><br/>
+                            <span id="idmessage" style="font-size: 1.5em; line-height: 1em;margin: 0px;"></span><br/><br/>
+                        </div>
+                        <div>
                             <button id="getstart" class="btn btn-primary"><i class="fa fa-play"></i> Start</button>
                             <button id="putpause" class="btn btn-primary"><i class="fa fa-pause"></i> Pause</button>
-                            <button id="putrestart" class="btn btn-primary"><i class="fa fa-refresh"></i> Restart
+                            <button id="putrestart" class="btn btn-primary"><i class="fa fa-refresh"></i> Resume
                             </button>
                             <a href="#myModal" data-toggle="modal" class="btn btn-danger"><i class="fa fa-stop"></i>
                                 Stop</a>
                         </div>
-
 
                     </div>
                     <div class="tab-pane fade" id="status">
