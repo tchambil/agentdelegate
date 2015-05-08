@@ -108,7 +108,9 @@ public class PlataformController {
                 agentDefinitionJson.put("name", agentDefinition.name);
                 agentDefinitionJson.put("description",
                         agentDefinition.description);
+                agentDefinitionJson.put("enabled", agentDefinition.enabled);
                 agentDefinitionsArrayJson.put(agentDefinitionJson);
+
             }
         }
         JSONObject agentDefinitionsJson = new JSONObject();

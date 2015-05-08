@@ -23,6 +23,7 @@ function jsonSimple(data)
     return json;
 }
 
+
 function divSimple(data)
 {
      var json =
@@ -71,6 +72,28 @@ $(document).ready(function () {
             }
         }
     );
+
+    $.ajax({
+        url: "../agent_definitions"
+    }).then(function (data) {
+
+        $('#idlisttable').empty();
+        $(data.agent_definitions).each(function(index,item) {
+
+            txt="<tr><td id="+item.user+">"+item.user+
+                "</td><td id="+item.user+">"+item.name+"</td>"+
+                "</td><td id="+item.user+">"+item.description+"</td>"+
+                "</td><td id="+item.user+">"+item.enabled+"</td>"+
+                //   "<td><input type='button' value='Button 1'  id="+item.id+" /></td>"+
+
+                "<td><a href='user.html'><i class='fa fa-pencil'></i></a>"+
+                "<a href='#myModal' role='button' data-toggle='modal' id="+item.user+"><i class='fa fa-trash-o'></i></a></td></tr>"
+            $('#idlisttable').append(txt);
+
+        });
+
+
+    });
 
     $.ajax({
         url: "../users"

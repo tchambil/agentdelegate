@@ -1,18 +1,54 @@
 $(document).ready(function () {
-    $('#btnagent').click(function () {
+    $.ajax({
+        url: "../agent_definitions"
+    }).then(function (data) {
+        $('#DropAgentGeneral').empty();
+
+        $(data.agent_definitions).each(function(index,item) {
+
+            $('#DropAgentGeneral').append('<option value='+item.name+'>'+item.name+'</option>');
+
+
+        });
+
+
+    });
+
+    $.ajax({
+        url: "../users"
+    }).then(function (data) {
+        $('#DropUserGeneral').empty();
+
+
+        $(data.users).each(function(index,item) {
+            {
+                $('#DropUserGeneral').append('<option value='+item.id+'>'+item.nick_name+'</option>');
+                $('#DropUserGeneral').append('<option value='+item.id+'>'+item.nick_name+'</option>');
+                   }
+        });
+
+
+    });
+
+
+    $('#btnagentSdve').click(function () {
         $.ajax({
+
             type: 'POST',
-            url: '../users/test-user-1/agents',
+            url: '../users/'+ $('#DropUserGeneral').val()+'/agents',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            data: $('#txtagent').val(),
+
+            data:     '{ "name" : "'+ $('#nameagentgeneral').val()+'" , "definition" : "'+ $('#DropAgentGeneral').val()+'" }',
             success: function (data) {
-                $('#txtagent').empty();
-                $('#txtagent').append(JSON.stringify(data, null, "\t"));
+
+                $('#idMessagsedAgent').empty();
+                $('#idMessagsedAgent').append(JSON.stringify(data, null, "\t"));
             },
             error: function (err) {
-                $('#txtagent').empty();
-                $('#txtagent').append(JSON.stringify(err, null, 2));
+
+                $('#idMessagsedAgent').empty();
+                $('#idMessagsedAgent').append(JSON.stringify(err, null, 2));
             }
         }); //-- END of Ajax
     });

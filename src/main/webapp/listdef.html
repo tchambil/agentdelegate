@@ -13,8 +13,9 @@
     <link rel="stylesheet" href="css/font-awesome.css">
 
     <script src="js/site/jquery-1.11.1.min.js" type="text/javascript"></script>
+
     <script src="js/site/jquery.knob.js" type="text/javascript"></script>
-    <script src="../js/agent.js"></script>
+    <script src="../js/agentdefinition.js"></script>
     <script src="../js/system.js"></script>
     <script type="text/javascript">
         $(function () {
@@ -151,9 +152,9 @@
         </li>
         <li>
             <ul class="legal-menu nav nav-list collapse">
-
-                <li><a href="agentdef.html"><span class="fa fa-caret-right"></span> Definitions</a></li>
+                <li><a href="agentdef.html"><span class="fa fa-caret-right"></span> Definitios</a></li>
                 <li><a href="listdef.html"><span class="fa fa-caret-right"></span> List</a></li>
+
             </ul>
         </li>
         <!--<Agents]-->
@@ -165,7 +166,7 @@
         <li>
             <ul class="premium-menu nav nav-list collapse">
                 <li>
-                    <a href="premium-profile.html"><span class="fa fa-caret-right"></span> Enhanced Profile</a>
+                    <a href="agent.html"><span class="fa fa-caret-right"></span> Agent</a>
                 </li>
             </ul>
         </li>
@@ -207,146 +208,75 @@
 </div>
 
 <div class="content">
-<div class="stats">
-    <span   class="label label-danger">Status:</span> <span id="headerStatus">null</span>
-    <span>&nbsp;&nbsp;</span>
-    <span class="label label-success">Address IP:</span> <span id="headerIp">null</span>
-    <span>&nbsp;&nbsp;</span>
-    <span class="label label-info">Server:</span> <span id="headerServer">null</span>
-    <span>&nbsp;&nbsp;</span>
-</div>
 
-<div class="header">
-    <h1 class="page-title">Agents</h1>
-</div>
-<div class="main-content">
-<ul class="nav nav-tabs">
-    <li class="active"><a href="#home" data-toggle="tab">Register</a></li>
-    <li><a href="#advanced" data-toggle="tab">Result</a></li>
-
-</ul>
-
-<div class="row">
-<div id="myTabContent" class="tab-content">
-
-<div class="tab-pane active in" id="home">
-
-    <div class="col-md-3">
-        <div class="widget">
-            <ul class="cards list-group">
-
-                <li class="list-group-item">
-                    <p class="label label-warning header-label">General</p>
-                    <div class="form-group">
-                        <label>name</label>
-                        <input type="text" id="nameagentgeneral" class="form-control" value="cuonter"/>
-
-                    </div>
-                </li>
-                <li class="list-group-item">
-
-                    <div class="form-group">
-
-                        <label>User</label>
-                        <select   id="DropUserGeneral" class="form-control">
-                            <option value="Test">Selection Item</option>
-                        </select>
-
-                    </div>
-                    <div class="form-group">
-                        <label>Agent Definitions</label>
-                        <select  id="DropAgentGeneral" class="form-control">
-                            <option value="Test">Selection Item</option>
-                        </select>
-
-                    </div>
-
-                </li>
-            </ul>
-            <button id="btnagentSdve" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
-            <a href="#myModal" data-toggle="modal" class="btn btn-danger">Delete</a>
-            <br/>      <br/>
-            <div id="idMessagsedAgent" class="alert alert-info">
-            </div>
-
-        </div>
-    </div><!-- finish col-md-3-->
-
-
-</div><!-- finish simple-->
-
-<div class="tab-pane fade" id="advanced">
-
-
-    <div class="col-md-3">
-        <div class="widget">
-            <ul class="cards list-group">
-                <li class="list-group-item">
-                    <p class="label label-warning header-label">General</p>
-                    <div class="form-group">
-                        <label>name</label>
-                        <input type="text" name="id" id="advancenamegeneral" class="form-control" value="cuonter"/>
-
-                    </div>
-                    <div class="form-group">
-                        <label>User</label>
-
-                        <select name="DropUsergeneral" id="advanceusergeneral" class="form-control">
-                            <option value="Test">User Test</option>
-                        </select>
-                    </div>
-
-                </li>
-                <li>
-
-                </li>
-
-            </ul>
-
-            <button id="btnadvanceSdve" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
-            <a href="#myModal" data-toggle="modal" class="btn btn-danger">Delete</a>
-            <br/>      <br/>
-            <div id="idMessagsesdUser" class="alert alert-success">
-            </div>
-
-        </div>
-    </div><!-- finish col-md-3-->
-
-</div>
-
-</div>
-</div>
-
-<div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Delete Confirmation</h3>
-            </div>
-            <div class="modal-body">
-
-                <p class="error-text"><i class="fa fa-warning modal-icon"></i>Are you sure you want to delete
-                    the Agent Definitions?</p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                <button id="btndefinitionDelete" class="btn btn-danger" data-dismiss="modal">Delete</button>
-            </div>
-        </div>
+    <div class="stats">
+        <span   class="label label-danger">Status:</span> <span id="headerStatus">null</span>
+        <span>&nbsp;&nbsp;</span>
+        <span class="label label-success">Address IP:</span> <span id="headerIp">null</span>
+        <span>&nbsp;&nbsp;</span>
+        <span class="label label-info">Server:</span> <span id="headerServer">null</span>
+        <span>&nbsp;&nbsp;</span>
     </div>
-</div>
+    <div class="header">
+        <h1 class="page-title">List Agent Definition</h1>
+    </div>
+    <div class="main-content">
 
 
-<footer>
-    <hr>
-    <p class="pull-right">A <a href="http://www.portnine.com/bootstrap-themes" target="_blank">Free Bootstrap
-        Theme</a> by <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
+        <table id="idtablelist" class="table table-hover" >
+            <thead>
+            <tr>
+                <th>User</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Outputs</th>
+                <th style="width: 3.5em;"></th>
+            </tr>
+            </thead>
+            <tbody  id="idlisttable">
+            </tbody>
+        </table>
 
-    <p>© 2015 <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
-</footer>
-</div>
+        <ul class="pagination">
+            <li><a href="#">&laquo;</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&raquo;</a></li>
+        </ul>
+
+
+        <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3 id="myModalLabel">Delete Confirmation</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p class="error-text"><i class="fa fa-warning modal-icon"></i>Are you sure you want to delete
+                            the user?<br>This cannot be undone.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                        <button id="btnUserDelete" class="btn btn-danger" data-dismiss="modal">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <footer>
+            <hr>
+            <p class="pull-right">A <a href="http://www.portnine.com/bootstrap-themes" target="_blank">Free Bootstrap
+                Theme</a> by <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
+
+            <p>© 2015 <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
+        </footer>
+    </div>
 </div>
 <script src="js/site/bootstrap.js"></script>
 <script type="text/javascript">
