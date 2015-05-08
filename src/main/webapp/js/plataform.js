@@ -158,20 +158,6 @@ $(document).ready(function () {
         });
     });
 
-    $.ajax({
-        url: "../status"
-    }).then(function(data) {
-        $("#idmessage").empty();
-        $("#idmessage").append(data.message);
-        $("#headerServer").empty();
-        $("#headerServer").append('['+data.HostName+']');
-        $("#headerIp").empty();
-        $("#headerIp").append('['+data.IP+']');
-        $("#headerStatus").empty();
-        $("#headerStatus").append('[ '+data.status+' ]');
-
-    });
-
     $("#btnstatus").click(function (e) {
         $.get('../status', function (server) {
             // $('#responsestatus').empty();

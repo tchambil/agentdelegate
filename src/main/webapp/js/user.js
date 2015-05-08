@@ -3,6 +3,29 @@
  */
 $(document).ready(function () {
     // Random Person AJAX Request
+
+
+    $.ajax({
+        url: "../users"
+    }).then(function (data) {
+        $('#idlisttable').empty();
+        $(data.users).each(function(index,item) {
+
+            txt="<tr><td id="+item.id+">"+item.id+
+                "</td><td id="+item.id+">"+item.nick_name+"</td>"+
+                "</td><td id="+item.id+">"+item.full_name+"</td>"+
+                "</td><td id="+item.id+">"+item.email+"</td>"+
+             //   "<td><input type='button' value='Button 1'  id="+item.id+" /></td>"+
+
+                "<td><a href='user.html'><i class='fa fa-pencil'></i></a>"+
+                "<a href='#myModal' role='button' data-toggle='modal' id="+item.id+"><i class='fa fa-trash-o'></i></a></td></tr>"
+            $('#idlisttable').append(txt);
+
+        });
+
+
+    });
+
     $("#btnGetUser").click(function (e) {
         $.get('../users/test-user-1', function (user) {
             $('#outUser').empty();
@@ -19,11 +42,43 @@ $(document).ready(function () {
     });
     $("#btnGetUserall").click(function (e) {
         $.get('../users', function (user) {
-            $('#outUser').empty();
-            $('#outUser').append(JSON.stringify(user, null, "\t"));
+            $('#idlisttable').empty();
+            /*
+            if(user){
+                   var len=user.users.length;
+                   var txt="";
+                   if(len>0){
+                       for(var i=0; i<len;i++)
+                       {
+                            txt="<tr><td>"+user.users[i].display_name+
+                                "</td><td>"+user.users[i].id+"</td>"+
+                                "</td><td>"+user.users[i].id+"</td>"+
+                                "</td><td>"+user.users[i].id+"</td>"+
+                                "<td><a href='user.html'><i class='fa fa-pencil'></i></a>"+
+                                   "<a href='#myModal' role='button' data-toggle='modal'><i class='fa fa-trash-o'></i></a></td></tr>"
+                                $('#idlisttable').append(txt);
+                       }
+                   }
+               }
+*/
+            $(user.users).each(function(index,item) {
+
+
+
+                txt="<tr><td>"+item.id+
+                    "</td><td>"+item.nick_name+"</td>"+
+                    "</td><td>"+item.full_name+"</td>"+
+                    "</td><td>"+item.email+"</td>"+
+                    "<td><a href='user.html'><i class='fa fa-pencil'></i></a>"+
+                    "<a href='#myModal' role='button' data-toggle='modal'><i class='fa fa-trash-o'></i></a></td></tr>"
+                $('#idlisttable').append(txt);
+
+            });
 
         });
+
     });
+
     $("#btnputUser").click(function (e) {
         $.ajax({
             type: "PUT",
@@ -52,21 +107,54 @@ $(document).ready(function () {
         });
     });
 
-    $('#btnnewUser').click(function (e) {
 
-        $.post('../users?id=' + $('#idInput').val().toString() +
-            '&password=' + $('#passwordInput').val().toString() +
-            '&display_name=' + $('#display_nameInput').val().toString() +
-            '&full_name=' + $('#full_nameInput').val().toString() +
-            '&email=' + $('#emailInput').val().toString() +
-            '&nickname=' + $('#nicknameInput').val().toString() +
-            '&company=' + $('#companyInput').val().toString() +
-            '&interests=' + $('#interestsInput').val().toString(), function (response) {
-            $('#outUser').empty();
-            $('#outUser').append(JSON.stringify(response, null, "\t"));
+    $("#btnUserSave").click(function (e) {
+        $.ajax({
+            type: "POST",
+            url: '../users',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                id: $('#idInput').val(),
+                password: $('#passwordInput').val(),
+                display_name: $('#display_nameInput').val(),
+                full_name: $('#full_nameInput').val(),
+                email: $('#emailInput').val().toString(),
+                nick_name: $('#nicknameInput').val(),
+                organization: $('#companyInput').val(),
+                interests: $('#interestsInput').val()
+
+            }),
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                $('#idMessageUser').empty();
+                $('#idMessageUser').append(data.message);
+            },
+
+            error: function (jqXHR, status) {
+                $('#idMessageUser').empty();
+                $('#idMessageUser').append(jqXHR.responseText);
+
+            }
         });
-
-        e.preventDefault(); // prevent actual form submit and page reload
     });
+    $("#btnUserDelete").click(function (e) {
+        $.ajax({
+            type: "DELETE",
+            url: '../users/'+ $('#idInput').val(),
+            contentType: "application/json; charset=utf-8",
+
+            success: function (data, status, jqXHR) {
+                $('#idMessageUser').empty();
+                $('#idMessageUser').append(data.message);
+            },
+
+            error: function (jqXHR, status) {
+                $('#idMessageUser').empty();
+                $('#idMessageUser').append(jqXHR.responseText);
+
+            }
+        });
+    });
+
 
 });

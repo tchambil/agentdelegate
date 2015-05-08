@@ -13,8 +13,9 @@
     <link rel="stylesheet" href="css/font-awesome.css">
 
     <script src="js/site/jquery-1.11.1.min.js" type="text/javascript"></script>
-
     <script src="js/site/jquery.knob.js" type="text/javascript"></script>
+    <script src="../js/user.js"></script>
+    <script src="../js/system.js"></script>
     <script type="text/javascript">
         $(function () {
             $(".knob").knob();
@@ -150,7 +151,7 @@
         </li>
         <li>
             <ul class="legal-menu nav nav-list collapse">
-                <li><a href="privacy-policy.html"><span class="fa fa-caret-right"></span> Privacy Policy</a></li>
+                <li><a href="agentdefinition.html"><span class="fa fa-caret-right"></span> Definitions</a></li>
 
             </ul>
         </li>
@@ -162,9 +163,10 @@
         </li>
         <li>
             <ul class="premium-menu nav nav-list collapse">
-                <li>
-                    <a href="premium-profile.html"><span class="fa fa-caret-right"></span> Enhanced Profile</a>
-                </li>
+
+                <li><a href="agentdefinition.html"><span class="fa fa-caret-right"></span> Definitions</a></li>
+
+
             </ul>
         </li>
         <!--<Groups]-->
@@ -206,10 +208,14 @@
 
 <div class="content">
     <div class="stats">
-        <span class="label label-info">Server:</span> Teofilo
-        <span class="label label-success">Address IP:</span> 192.168.3.10
-        <span class="label label-danger">Status:</span> running
+        <span   class="label label-danger">Status:</span> <span id="headerStatus">null</span>
+        <span>&nbsp;&nbsp;</span>
+        <span class="label label-success">Address IP:</span> <span id="headerIp">null</span>
+        <span>&nbsp;&nbsp;</span>
+        <span class="label label-info">Server:</span> <span id="headerServer">null</span>
+        <span>&nbsp;&nbsp;</span>
     </div>
+
     <div class="header">
         <h1 class="page-title">Edit User</h1>
     </div>
@@ -273,8 +279,13 @@
                             </div>
                         </form>
                         <div class="btn-toolbar list-toolbar">
-                            <button class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                            <button id="btnUserSave" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
                             <a href="#myModal" data-toggle="modal" class="btn btn-danger">Delete</a>
+                            <br/>      <br/>
+
+                            <div id="idMessageUser" style="margin: 0 auto; text-align: left; width: 800px">
+
+                            </div>
                         </div>
                     </div>
 
@@ -311,7 +322,7 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                        <button class="btn btn-danger" data-dismiss="modal">Delete</button>
+                        <button id="btnUserDelete" class="btn btn-danger" data-dismiss="modal">Delete</button>
                     </div>
                 </div>
             </div>
