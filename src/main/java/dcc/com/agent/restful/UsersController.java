@@ -3,8 +3,10 @@ package dcc.com.agent.restful;
 import dcc.com.agent.agentserver.AgentServer;
 import dcc.com.agent.agentserver.User;
 import dcc.com.agent.message.MessageSender;
+import dcc.com.agent.util.NameValue;
 import dcc.com.agent.util.Utils;
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -130,8 +132,8 @@ public class UsersController {
             agentServer.addUser(newUser);
             // TODO: Set Location header with URL
             JSONObject message = new JSONObject();
-            message.put("message", "Update successful");
-            return newUser.toString();
+            message.put("message", "Save successful");
+            return message.toString();
         }
     }
 
@@ -241,8 +243,32 @@ public class UsersController {
         agentServer.users.remove(user.id);
         logger.info("Deleted user: " + user.id);
         JSONObject message = new JSONObject();
-        message.put("message", "Deleted user: "+id);
+        message.put("message", "Deleted Successful user: "+id);
         return message.toString();
+
+    }
+    @RequestMapping(value = "/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public String getUsers() throws Exception {
+
+        JSONArray usersArrayJson = new JSONArray();
+        for (NameValue<User> userIdValue : agentServer.users) {
+            User user = userIdValue.value;
+            JSONObject userJson = new JSONObject();
+            userJson.put("id", user.id);
+            userJson.put("display_name", user.incognito ? "(Incognito)"
+                    : (user.displayName == null ? "" : user.displayName));
+            userJson.put("full_name", user.fullName);
+            userJson.put("nick_name", user.nickName);
+            userJson.put("email", user.email);
+
+
+            usersArrayJson.put(userJson);
+        }
+        JSONObject usersJson = new JSONObject();
+        usersJson.put("users", usersArrayJson);
+
+        return  usersJson.toString();
 
     }
 }

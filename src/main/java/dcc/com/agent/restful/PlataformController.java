@@ -270,25 +270,7 @@ public class PlataformController {
         return aboutJson.toString(4);
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    public String getUsers() throws Exception {
 
-       JSONArray usersArrayJson = new JSONArray();
-        for (NameValue<User> userIdValue : agentServer.users) {
-            User user = userIdValue.value;
-            JSONObject userJson = new JSONObject();
-            userJson.put("id", user.id);
-            userJson.put("display_name", user.incognito ? "(Incognito)"
-                    : (user.displayName == null ? "" : user.displayName));
-            usersArrayJson.put(userJson);
-        }
-        JSONObject usersJson = new JSONObject();
-        usersJson.put("users", usersArrayJson);
-
-        return  usersJson.toString();
-
-    }
 
     @RequestMapping(value = "/config", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
