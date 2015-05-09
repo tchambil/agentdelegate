@@ -559,7 +559,7 @@ public class AgentInstance {
 
                 MessageSender messageSender = new MessageSender ();
                 try {
-                  messageSender.sender("Computed new output value for " + field.symbol.name + ": " + newValue.toJson());
+                  messageSender.sender("Computed new output value for " + field.symbol.name + ": " + newValue.toJson(), false);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

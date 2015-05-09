@@ -11,12 +11,14 @@ import dcc.com.agent.config.AgentProperties;
 public class MessageSender {
 
     public static AgentProperties Properties;
-    public void sender(String message)throws Exception{
+    public void sender(String message, boolean state)throws Exception{
+        state=true;
     ConnectionFactory factory = new ConnectionFactory();
     factory.setUsername(Properties.Rabbitmq_Username);
     factory.setPassword(Properties.Rabbitmq_Password);
-    factory.setHost(Properties.Rabbitmq_HostLocal);
-
+    factory.setHost(Properties.Rabbitmq_HostExtern);
+    if(state)
+    {
     Connection connection = factory.newConnection();
     Channel channel = connection.createChannel();
 
@@ -24,6 +26,7 @@ public class MessageSender {
     channel.basicPublish("", Properties.Rabbitmq_QueueName, null, message.getBytes());
      channel.close();
     connection.close();
+    }
   }
 
 }

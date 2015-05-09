@@ -2,7 +2,7 @@ package dcc.com.agent.restful;
 
 import dcc.com.agent.agentserver.AgentServer;
 import dcc.com.agent.agentserver.User;
-import dcc.com.agent.message.MessageSender;
+import dcc.com.agent.appserver.AgentAppServerBadRequestException;
 import dcc.com.agent.util.NameValue;
 import dcc.com.agent.util.Utils;
 import org.apache.log4j.Logger;
@@ -11,9 +11,8 @@ import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import dcc.com.agent.appserver.AgentAppServerBadRequestException;
+
 import javax.servlet.http.HttpServletRequest;
-import java.net.InetAddress;
 
 @RestController
 public class UsersController {
@@ -147,16 +146,7 @@ public class UsersController {
         User users = agentServer.users.get(id);
         return users;
     }
-    @RequestMapping(value = "/sender", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public String getSender() throws Exception {
-        InetAddress iAddress = InetAddress.getLocalHost();
-        logger.info("probando rabbitmq");
-        MessageSender messageSender = new MessageSender ();
-        messageSender.sender("Saludos desde "+ iAddress );
-        return "Procesando....";
-    }
+
     @RequestMapping(value = "/users/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, headers = "Content-Type=application/json")
     @ResponseStatus(HttpStatus.OK)
     public User putUser(@PathVariable String id, HttpServletRequest request) throws Exception {

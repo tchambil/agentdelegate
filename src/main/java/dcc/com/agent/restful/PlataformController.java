@@ -6,7 +6,7 @@ import dcc.com.agent.appserver.AgentAppServerShutdown;
 import dcc.com.agent.config.AgentProperties;
 import dcc.com.agent.field.Field;
 import dcc.com.agent.scheduler.AgentScheduler;
-import dcc.com.agent.script.intermediate.ScriptNode;
+import dcc.com.agent.script.intermediate.*;
 import dcc.com.agent.script.parser.ScriptParser;
 import dcc.com.agent.script.runtime.value.Value;
 import dcc.com.agent.script.runtine.ScriptRuntime;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import dcc.com.agent.script.intermediate.ExpressionNode;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 
@@ -162,7 +162,7 @@ public class PlataformController {
 
     @RequestMapping(value = "/agents", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public String getagents() throws JSONException {
+    public String getagents() throws JSONException, SymbolException {
         logger.info("Getting list of agent instances for all users");
         JSONArray agentInstancesArrayJson = new JSONArray();
         // Get all agents for all users
@@ -177,6 +177,17 @@ public class PlataformController {
                 agentInstanceJson.put("definition",
                         agentInstance.agentDefinition.name);
                 agentInstanceJson.put("description", agentInstance.description);
+
+                AgentInstance agent = agentServer.agentInstances.get( agentInstance.user.id).get(
+                        agentInstance.name);
+                SymbolValues outputValues = agent.categorySymbolValues
+                        .get("outputs");
+
+
+                for (Symbol outputSymbol : outputValues) {
+                    String fieldName = outputSymbol.name;
+                    agentInstanceJson.put("Outputs",agent.getOutput(fieldName));
+                }
                 agentInstancesArrayJson.put(agentInstanceJson);
             }
         }
