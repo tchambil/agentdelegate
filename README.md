@@ -54,3 +54,25 @@ sudo service rabbitmq-server start
 sudo rabbitmq-plugins enable rabbitmq_management
 sudo service rabbitmq-server restart
 ```
+# For configure RabbitMQ in Ubuntu
+```shell
+sudo rabbitmqctl add_user agent 159753
+sudo rabbitmqctl set_user_tags agent administrator
+sudo rabbitmqctl set_permissions -p / agent ".*" ".*" ".*"
+sudo rabbitmqctl delete_user guest
+
+sudo service rabbitmq-server restart
+
+test connection with following code
+
+curl -i -u heartbeat:alive http://127.0.0.1:15672/
+
+HTTP/1.1 200 OK
+Server: MochiWeb/1.0 (Any of you quaids got a smint?)
+last-modified: Sat, 16 May 2015 05:32:19 GMT
+Date: Sat, 16 May 2015 05:45:42 GMT
+Content-Type: text/html
+Content-Length: 1353
+
+
+```

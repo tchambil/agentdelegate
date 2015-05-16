@@ -22,7 +22,7 @@ public class sender {
 
         channel.queueDeclare(Properties.Rabbitmq_QueueName, false, false, false, null);
         String message = "";
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 100; i++) {
             message="message "+"["+i+"]";
             channel.basicPublish("", Properties.Rabbitmq_QueueName, null, message.getBytes());
             System.out.println(" ["+i+"] Sent '" + message + "'");

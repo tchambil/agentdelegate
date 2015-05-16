@@ -14,7 +14,7 @@ public class AgentProperties {
     public static final String Rabbitmq_Username = "agent";
     public static final String Rabbitmq_HostLocal = getHostAddress().toString();
     public static final String Rabbitmq_HostPublic = "";
-    public static final String Rabbitmq_HostExtern="192.168.50.22";
+    public static final String Rabbitmq_HostExtern="uchile.cloudapp.net";
     public static final String Rabbitmq_Password = "159753";
     public static final String Rabbitmq_QueueName = "queue";
 
