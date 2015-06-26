@@ -64,12 +64,12 @@ public class PlataformController {
 
     }
 
-    @RequestMapping(value="/",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="/",method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public String getmain() throws Exception    {
-        JSONObject message = new JSONObject();
-        message.put("message", "Welcome to Agent Server");
-        return message.toString();
+        //JSONObject message = new JSONObject();
+        //message.put("message", "Welcome to Agent Server");
+        return "index";
     }
 
     @RequestMapping(value = "/config", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

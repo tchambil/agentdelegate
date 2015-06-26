@@ -61,7 +61,7 @@ public class RPCClient {
         connection.close();
     }
 
-    public static void main(String[] argv) {
+    public static void mammmin(String[] argv) {
         RPCClient fibonacciRpc = null;
         String response = null;
         try {

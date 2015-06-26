@@ -12,7 +12,7 @@ import dcc.com.agent.config.AgentProperties;
  */
 public class Receive {
     public static AgentProperties Properties;
-    public static void main(String[] args) throws Exception {
+    public static void mammmin(String[] args) throws Exception {
 
         ConnectionFactory factory=new ConnectionFactory();
         factory.setUsername(Properties.Rabbitmq_Username);

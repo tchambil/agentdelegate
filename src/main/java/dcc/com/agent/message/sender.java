@@ -11,7 +11,7 @@ import dcc.com.agent.config.AgentProperties;
 public class sender {
 
     public static AgentProperties Properties;
-    public static void main(String[] args) throws Exception {
+    public static void mainmmmm(String[] args) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setUsername(Properties.Rabbitmq_Username);
         factory.setPassword(Properties.Rabbitmq_Password);

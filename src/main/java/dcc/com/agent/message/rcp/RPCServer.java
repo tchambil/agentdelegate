@@ -22,7 +22,7 @@ public static int factorial(int n)
     return x;
 
 }
-    public static void main(String[] argv) {
+    public static void mmmmain(String[] argv) {
         Connection connection = null;
         Channel channel = null;
         try {
